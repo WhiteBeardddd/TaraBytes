@@ -31,6 +31,7 @@ public class SkinType extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_skin_type);
+        hideSystemUI();
 
         // Initialize Buttons
         ImageButton toPrevious = findViewById(R.id.back_btn);
@@ -52,8 +53,8 @@ public class SkinType extends AppCompatActivity {
         skinTypeSpinner.setAdapter(adapter);
 
         // Load products
-        skinTypeList.addAll(Product.getPopularProducts());
-        skinTypeList.addAll(Product.getDefaultProducts());
+        skinTypeList.addAll(Product.getPopularProducts(this));
+        skinTypeList.addAll(Product.getDefaultProducts(this));
 
         // Set up RecyclerView Adapter
         SkinTypeAdapter = new SkinTypeCard(this, new ArrayList<>(skinTypeList));
@@ -84,11 +85,21 @@ public class SkinType extends AppCompatActivity {
         proceedToCheckout.setOnClickListener(view -> startActivity(new Intent(SkinType.this, Checkout.class)));
     }
 
+    private void hideSystemUI() {
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
     private void filterProductsBySkinType(String selectedSkinType) {
         List<Product> filteredList = new ArrayList<>();
         List<Product> allProducts = new ArrayList<>();
-        allProducts.addAll(Product.getPopularProducts());
-        allProducts.addAll(Product.getDefaultProducts());
+        allProducts.addAll(Product.getPopularProducts(this));
+        allProducts.addAll(Product.getDefaultProducts(this));
 
         String selectedType = selectedSkinType.toLowerCase();
 

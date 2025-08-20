@@ -5,51 +5,57 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".display.Homepage">
+    tools:context=".display.Homepage"
+    android:background="@drawable/gradient_bg_004">
 
+    <!-- Header -->
     <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/gradient_bg_004"
-        android:gravity="center">
+        android:layout_height="99dp"
+        android:elevation="8dp"
+        android:background="@drawable/gradient_bg_002"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="99dp"
-            android:elevation="8dp"
-            android:background="@drawable/gradient_bg_002"
-            android:orientation="horizontal"
-            android:padding="10dp">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="71dp"
+            android:layout_height="74dp"
+            android:layout_gravity="start|center_vertical"
+            android:src="@drawable/beauty_logo"
+            tools:ignore="ContentDescription" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="71dp"
-                android:layout_height="74dp"
-                android:layout_gravity="start|center_vertical"
-                android:src="@drawable/beauty_logo"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:gravity="center_vertical"
-                android:text="Beautify"
-                android:textColor="#FFFFFF"
-                android:letterSpacing="0.3"
-                android:fontFamily="@font/grand_hotel_regular"
-                android:textSize="27sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="start"
-            android:orientation="vertical">
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:text="Beautify"
+            android:textColor="#FFFFFF"
+            android:letterSpacing="0.3"
+            android:fontFamily="@font/grand_hotel_regular"
+            android:textSize="27sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintBottom_toTopOf="@id/navigation_bar">
+
+        <LinearLayout
+            android:id="@+id/scrollablePart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="10dp">
 
             <!-- Featured Products -->
             <TextView
@@ -58,7 +64,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
-                android:gravity="center_vertical"
                 android:text="Featured Products"
                 android:textColor="#FFFFFF"
                 android:fontFamily="@font/lexend_black"
@@ -69,13 +74,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/featured_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="412dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:clickable="true"
-                tools:ignore="InefficientWeight,KeyboardInaccessibleWidget" />
-
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:background="#00000000" />
 
             <!-- Popular Products -->
             <TextView
@@ -84,7 +85,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
-                android:gravity="center_vertical"
                 android:text="Popular Products"
                 android:fontFamily="@font/lexend_black"
                 android:textColor="#FFFFFF"
@@ -95,87 +95,81 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popular_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="412dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:clickable="true"
-                tools:ignore="InefficientWeight,KeyboardInaccessibleWidget" />
-
-
-            <!--      PATHS      -->
-            <LinearLayout
-                android:id="@+id/navigation_bar"
-                android:layout_width="match_parent"
-                android:layout_height="62dp"
-                android:layout_gravity="bottom"
-                android:background="@drawable/gradient_bg_002"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"
-                android:weightSum="6"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <ImageButton
-                    android:id="@+id/toHome"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_inv"
-                    android:elevation="8dp"
-                    android:src="@drawable/home_icon"
-                    tools:ignore="ContentDescription,HardcodedText" />
-
-                <ImageButton
-                    android:id="@+id/toRatings"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_inv"
-                    android:elevation="8dp"
-                    android:src="@drawable/popular_icon"
-                    tools:ignore="ContentDescription,HardcodedText" />
-
-                <ImageButton
-                    android:id="@+id/toSkinTypes"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_inv"
-                    android:elevation="8dp"
-                    android:src="@drawable/skin_type_icon"
-                    tools:ignore="ContentDescription,HardcodedText" />
-
-                <ImageButton
-                    android:id="@+id/toFeatured"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_inv"
-                    android:elevation="8dp"
-                    android:src="@drawable/featured_icon"
-                    tools:ignore="ContentDescription" />
-
-                <ImageButton
-                    android:id="@+id/toPayment"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_inv"
-                    android:elevation="8dp"
-                    android:src="@drawable/check_out_icon"
-                    tools:ignore="ContentDescription" />
-
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:background="#00000000" />
 
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom Navigation Bar -->
+    <LinearLayout
+        android:id="@+id/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:background="@drawable/gradient_bg_002"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
+        android:weightSum="6"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageButton
+            android:id="@+id/toHome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:background="@drawable/border_inv"
+            android:elevation="8dp"
+            android:src="@drawable/home_icon"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/toRatings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:background="@drawable/border_inv"
+            android:elevation="8dp"
+            android:src="@drawable/popular_icon"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/toSkinTypes"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:background="@drawable/border_inv"
+            android:elevation="8dp"
+            android:src="@drawable/skin_type_icon"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/toFeatured"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:background="@drawable/border_inv"
+            android:elevation="8dp"
+            android:src="@drawable/featured_icon"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/toPayment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:background="@drawable/border_inv"
+            android:elevation="8dp"
+            android:src="@drawable/check_out_icon"
+            tools:ignore="ContentDescription" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

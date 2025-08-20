@@ -1,0 +1,126 @@
+{
+  "popularProducts": [
+    {
+      "imageId": "popular_product_1",
+      "name": "Sleeping Mask",
+      "price": 300.00,
+      "description": "Black Mask",
+      "counter": 0,
+      "rating": 4.9,
+      "category": "Secret",
+      "skin_type": "Combination"
+    },
+    {
+      "imageId": "popular_product_2",
+      "name": "Garnier",
+      "price": 200.00,
+      "description": "Charcoal Mask",
+      "counter": 0,
+      "rating": 4.7,
+      "category": "Hot",
+      "skin_type": "Dry"
+    },
+    {
+      "imageId": "popular_product_3",
+      "name": "Cerave",
+      "price": 250.00,
+      "description": "Hydrating Sunscreen",
+      "counter": 0,
+      "rating": 4.7,
+      "category": "Ranked",
+      "skin_type": "Normal"
+    },
+    {
+      "imageId": "popular_product_4",
+      "name": "Mario Badescu",
+      "price": 300.00,
+      "description": "Facial Spray",
+      "counter": 0,
+      "rating": 4.5,
+      "category": "Hot",
+      "skin_type": "Dry"
+    },
+    {
+      "imageId": "popular_product_5",
+      "name": "Nivea Men",
+      "price": 300.00,
+      "description": "Lip Balm",
+      "counter": 0,
+      "rating": 4.6,
+      "category": "Secret",
+      "skin_type": "Combination"
+    },
+    {
+      "imageId": "popular_product_6",
+      "name": "Rouge Dior",
+      "price": 400.00,
+      "description": "Lipstick",
+      "counter": 0,
+      "rating": 4.3,
+      "category": "Hot",
+      "skin_type": "Oily"
+    }
+  ],
+  "featuredProducts": [
+    {
+      "imageId": "product_1",
+      "name": "Cerave",
+      "price": 300.00,
+      "description": "Moisturizing Lotion",
+      "counter": 0,
+      "rating": 2.2,
+      "category": "Ranked",
+      "skin_type": "Dry"
+    },
+    {
+      "imageId": "product_2",
+      "name": "Cerave",
+      "price": 200.00,
+      "description": "Hydrating Toner",
+      "counter": 0,
+      "rating": 3.8,
+      "category": "Hot",
+      "skin_type": "Combination"
+    },
+    {
+      "imageId": "product_3",
+      "name": "Cetaphil",
+      "price": 250.00,
+      "description": "Facial Cleanser",
+      "counter": 0,
+      "rating": 2.9,
+      "category": "Loved",
+      "skin_type": "Oily"
+    },
+    {
+      "imageId": "product_4",
+      "name": "Vitamin C",
+      "price": 300.00,
+      "description": "Brightening Serum",
+      "counter": 0,
+      "rating": 3.3,
+      "category": "Secret",
+      "skin_type": "Dry"
+    },
+    {
+      "imageId": "product_5",
+      "name": "Ordinary",
+      "price": 300.00,
+      "description": "Toning Solutions",
+      "counter": 0,
+      "rating": 2.7,
+      "category": "Ranked",
+      "skin_type": "Normal"
+    },
+    {
+      "imageId": "product_6",
+      "name": "Zaron",
+      "price": 400.00,
+      "description": "Brightening Toner",
+      "counter": 0,
+      "rating": 3.5,
+      "category": "Hot",
+      "skin_type": "Oily"
+    }
+  ]
+}
