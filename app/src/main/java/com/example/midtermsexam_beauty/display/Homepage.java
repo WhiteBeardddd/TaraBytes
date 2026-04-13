@@ -87,11 +87,6 @@ public class Homepage extends AppCompatActivity {
             startActivity(intent);
         });
 
-        proceedToRatings.setOnClickListener(view -> {
-            Intent intent = new Intent(Homepage.this, PopularProducts.class);
-            startActivity(intent);
-        });
-
         proceedToFeatured.setOnClickListener(view -> {
             Intent intent = new Intent(Homepage.this, FeaturedProducts.class);
             startActivity(intent);
