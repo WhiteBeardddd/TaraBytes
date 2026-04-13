@@ -3,6 +3,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- New Color Palette -->
+    <color name="color_primary">#34C759</color>
+    <color name="color_primary_dark">#1E8E4F</color>
+    <color name="color_accent_teal">#00C4B4</color>
+    <color name="color_accent_orange">#FF6B35</color>
+    <color name="color_dark_bg">#1F1F1F</color>
+    <color name="color_gray">#6C757D</color>
+
     <!-- Forest Theme Colors -->
     <color name="forest_green">#76D75A</color>
     <color name="forest_green_dark">#5AB442</color>

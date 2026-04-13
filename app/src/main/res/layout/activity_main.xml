@@ -1,80 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_bg_001"
+    android:background="@color/color_dark_bg"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Beautify"
-        android:letterSpacing="0.15"
-        android:textColor="#FFFFFF"
-        android:textSize="65sp"
-        android:fontFamily="@font/grand_hotel_regular"
+        android:layout_marginTop="56dp"
+        android:fontFamily="@font/lexend_black"
+        android:letterSpacing="0.10"
+        android:text="TaraBytes"
+        android:textColor="@color/white"
+        android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
-    <ImageView
-        android:id="@+id/Logo"
-        android:layout_width="230dp"
-        android:layout_height="225dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/beauty_logo"
+    <TextView
+        android:id="@+id/appTagline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/lexend_medium"
+        android:letterSpacing="0.2"
+        android:text="FAST  ·  FRESH  ·  DELIVERED"
+        android:textColor="@color/color_primary"
+        android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appName"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/Logo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/tarabytes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appTagline"
         tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/heroText"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/lexend_regular"
+        android:gravity="center"
+        android:letterSpacing="0.01"
+        android:lineSpacingMultiplier="1.4"
+        android:text="Order from your favorite spots,\ntracked live to your door."
+        android:textColor="#CCFFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Logo"
+        tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:id="@+id/linear"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:orientation="horizontal"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Logo">
+        app:layout_constraintTop_toBottomOf="@id/heroText">
 
         <Button
             android:id="@+id/signUpButton"
-            android:layout_width="137dp"
-            android:layout_height="60dp"
-            android:backgroundTint="#72FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:backgroundTint="@color/color_accent_orange"
             android:elevation="10dp"
-            android:fontFamily="@font/lexend_light"
-            android:text="Sign Up"
-            android:layout_marginRight="10dp"
-            android:textColor="#BA1CA9"
-            android:textSize="21sp"
-            tools:ignore="ButtonStyle,HardcodedText,RtlHardcoded" />
+            android:fontFamily="@font/lexend_bold"
+            android:text="Get Started"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:letterSpacing="0.04"
+            tools:ignore="ButtonStyle,HardcodedText" />
 
         <Button
             android:id="@+id/logInButton"
-            android:layout_width="137dp"
-            android:layout_height="60dp"
-            android:backgroundTint="#72FFFFFF"
-            android:elevation="10dp"
-            android:fontFamily="@font/lexend_light"
-            android:text="Login"
-            android:textColor="#BA1CA9"
-            android:textSize="21sp"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#1AFFFFFF"
+            android:elevation="0dp"
+            android:fontFamily="@font/lexend_medium"
+            android:text="I already have an account"
+            android:textColor="#CCFFFFFF"
+            android:textSize="15sp"
+            android:letterSpacing="0.02"
             tools:ignore="ButtonStyle,HardcodedText" />
 
     </LinearLayout>
 
-
-
-
+    <TextView
+        android:id="@+id/termsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="By continuing you agree to our Terms &amp; Privacy Policy"
+        android:textColor="@color/color_gray"
+        android:textSize="11sp"
+        android:fontFamily="@font/lexend_regular"
+        android:letterSpacing="0.02"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

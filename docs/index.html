@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food Order App — API Docs</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0f;
+    --surface: #13131a;
+    --surface2: #1a1a24;
+    --border: #2a2a3a;
+    --accent: #7c6dfa;
+    --accent2: #4fc9a4;
+    --accent3: #f5a623;
+    --accent4: #e85d75;
+    --text: #e8e8f0;
+    --muted: #6e6e8a;
+    --code-bg: #0a0a12;
+    --get: #4fc9a4;
+    --post: #7c6dfa;
+    --put: #f5a623;
+    --patch: #f5a623;
+    --delete: #e85d75;
+    --font-body: 'Sora', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.7;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* Sidebar */
+  aside {
+    width: 260px;
+    min-width: 260px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    padding: 0 0 40px;
+  }
+
+  .sidebar-header {
+    padding: 28px 20px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+  }
+
+  .sidebar-header .logo {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.3px;
+  }
+
+  .sidebar-header .version {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-top: 4px;
+  }
+
+  .sidebar-section {
+    padding: 8px 20px 4px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 20px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+  }
+
+  .sidebar-link:hover { color: var(--text); background: var(--surface2); }
+  .sidebar-link.active { color: var(--text); border-left-color: var(--accent); background: var(--surface2); }
+
+  .sidebar-link .method-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Main */
+  main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+  }
+
+  .main-header {
+    padding: 48px 56px 40px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .main-header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.8px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .main-header p {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 560px;
+  }
+
+  .base-url {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+
+  .base-url span { color: var(--muted); font-size: 11px; }
+  .base-url code { color: var(--accent2); }
+
+  /* Section */
+  .section {
+    padding: 48px 56px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title .icon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: var(--surface2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  .section-desc {
+    color: var(--muted);
+    margin-bottom: 28px;
+    font-size: 13px;
+  }
+
+  /* Endpoint card */
+  .endpoint {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .endpoint-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: background 0.15s;
+    user-select: none;
+  }
+
+  .endpoint-header:hover { background: var(--surface2); }
+
+  .method-badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 5px;
+    min-width: 52px;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+
+  .GET    { background: rgba(79,201,164,0.12); color: var(--get); }
+  .POST   { background: rgba(124,109,250,0.12); color: var(--post); }
+  .PUT    { background: rgba(245,166,35,0.12); color: var(--put); }
+  .PATCH  { background: rgba(245,166,35,0.12); color: var(--patch); }
+  .DELETE { background: rgba(232,93,117,0.12); color: var(--delete); }
+
+  .endpoint-path {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .endpoint-path .param { color: var(--accent3); }
+
+  .endpoint-summary {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .chevron {
+    color: var(--muted);
+    font-size: 12px;
+    transition: transform 0.2s;
+  }
+
+  .endpoint.open .chevron { transform: rotate(90deg); }
+
+  .endpoint-body {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .endpoint.open .endpoint-body { display: block; }
+
+  .endpoint-desc {
+    color: var(--muted);
+    font-size: 13px;
+    padding: 16px 0 12px;
+  }
+
+  /* Params / fields */
+  .param-section {
+    margin-top: 16px;
+  }
+
+  .param-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .param-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .param-table th {
+    text-align: left;
+    padding: 6px 10px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .param-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(42,42,58,0.5);
+    vertical-align: top;
+  }
+
+  .param-table tr:last-child td { border-bottom: none; }
+
+  .param-name {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent2);
+  }
+
+  .param-type {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent3);
+  }
+
+  .required-badge {
+    font-size: 10px;
+    background: rgba(232,93,117,0.12);
+    color: var(--delete);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+  }
+
+  .optional-badge {
+    font-size: 10px;
+    background: rgba(110,110,138,0.15);
+    color: var(--muted);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+  }
+
+  .param-desc { color: var(--muted); font-size: 12px; }
+
+  /* Code block */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-top: 16px;
+    overflow: hidden;
+  }
+
+  .code-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .code-block-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .copy-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    transition: all 0.15s;
+  }
+
+  .copy-btn:hover { color: var(--text); border-color: var(--accent); }
+
+  .code-block pre {
+    padding: 14px 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.7;
+    overflow-x: auto;
+    color: var(--text);
+  }
+
+  .s { color: #9ecb7c; }   /* string */
+  .n { color: var(--accent3); }  /* number/bool */
+  .k { color: var(--accent); }   /* key */
+  .c { color: var(--muted); }    /* comment */
+
+  /* Auth note */
+  .auth-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(124,109,250,0.08);
+    border: 1px solid rgba(124,109,250,0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .auth-note .icon { color: var(--accent); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Response codes */
+  .responses { margin-top: 16px; }
+  .response-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(42,42,58,0.4);
+    font-size: 12px;
+  }
+  .response-row:last-child { border-bottom: none; }
+  .res-code {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    min-width: 38px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .res-2 { background: rgba(79,201,164,0.1); color: var(--get); }
+  .res-4 { background: rgba(232,93,117,0.1); color: var(--delete); }
+  .res-5 { background: rgba(245,166,35,0.1); color: var(--put); }
+  .res-desc { color: var(--muted); }
+
+  scrollbar-width: thin;
+  aside::-webkit-scrollbar { width: 4px; }
+  aside::-webkit-scrollbar-track { background: transparent; }
+  aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<aside>
+  <div class="sidebar-header">
+    <div class="logo">🍱 FoodOrder API</div>
+    <div class="version">v1.0.0 — Supabase REST</div>
+  </div>
+
+  <div class="sidebar-section">Auth</div>
+  <a class="sidebar-link" onclick="scrollTo('auth')"><span class="method-dot" style="background:var(--post)"></span> Sign Up</a>
+  <a class="sidebar-link" onclick="scrollTo('auth')"><span class="method-dot" style="background:var(--post)"></span> Sign In</a>
+  <a class="sidebar-link" onclick="scrollTo('auth')"><span class="method-dot" style="background:var(--post)"></span> Sign Out</a>
+
+  <div class="sidebar-section">Profiles</div>
+  <a class="sidebar-link" onclick="scrollTo('profiles')"><span class="method-dot" style="background:var(--get)"></span> Get Profile</a>
+  <a class="sidebar-link" onclick="scrollTo('profiles')"><span class="method-dot" style="background:var(--patch)"></span> Update Profile</a>
+
+  <div class="sidebar-section">Sellers</div>
+  <a class="sidebar-link" onclick="scrollTo('sellers')"><span class="method-dot" style="background:var(--get)"></span> List Sellers</a>
+  <a class="sidebar-link" onclick="scrollTo('sellers')"><span class="method-dot" style="background:var(--post)"></span> Create Seller Profile</a>
+  <a class="sidebar-link" onclick="scrollTo('sellers')"><span class="method-dot" style="background:var(--patch)"></span> Update Seller Profile</a>
+
+  <div class="sidebar-section">Menu Items</div>
+  <a class="sidebar-link" onclick="scrollTo('menu')"><span class="method-dot" style="background:var(--get)"></span> List Menu Items</a>
+  <a class="sidebar-link" onclick="scrollTo('menu')"><span class="method-dot" style="background:var(--post)"></span> Create Menu Item</a>
+  <a class="sidebar-link" onclick="scrollTo('menu')"><span class="method-dot" style="background:var(--patch)"></span> Update Menu Item</a>
+  <a class="sidebar-link" onclick="scrollTo('menu')"><span class="method-dot" style="background:var(--delete)"></span> Delete Menu Item</a>
+
+  <div class="sidebar-section">Orders</div>
+  <a class="sidebar-link" onclick="scrollTo('orders')"><span class="method-dot" style="background:var(--get)"></span> List My Orders</a>
+  <a class="sidebar-link" onclick="scrollTo('orders')"><span class="method-dot" style="background:var(--get)"></span> Get Order</a>
+  <a class="sidebar-link" onclick="scrollTo('orders')"><span class="method-dot" style="background:var(--post)"></span> Place Order</a>
+  <a class="sidebar-link" onclick="scrollTo('orders')"><span class="method-dot" style="background:var(--patch)"></span> Update Order Status</a>
+
+  <div class="sidebar-section">Addresses</div>
+  <a class="sidebar-link" onclick="scrollTo('addresses')"><span class="method-dot" style="background:var(--get)"></span> List Addresses</a>
+  <a class="sidebar-link" onclick="scrollTo('addresses')"><span class="method-dot" style="background:var(--post)"></span> Add Address</a>
+  <a class="sidebar-link" onclick="scrollTo('addresses')"><span class="method-dot" style="background:var(--delete)"></span> Delete Address</a>
+
+  <div class="sidebar-section">Reviews</div>
+  <a class="sidebar-link" onclick="scrollTo('reviews')"><span class="method-dot" style="background:var(--post)"></span> Create Review</a>
+  <a class="sidebar-link" onclick="scrollTo('reviews')"><span class="method-dot" style="background:var(--get)"></span> Get Seller Reviews</a>
+</aside>
+
+<main>
+  <div class="main-header">
+    <h1>API Documentation</h1>
+    <p>REST API for the Food Ordering App, powered by Supabase. All endpoints require a Bearer token unless marked public.</p>
+    <div class="base-url">
+      <span>BASE URL</span>
+      <code>https://your-project.supabase.co/rest/v1</code>
+    </div>
+  </div>
+
+  <!-- AUTH -->
+  <div class="section" id="auth">
+    <div class="section-title"><span class="icon">🔐</span> Authentication</div>
+    <div class="section-desc">Handled by Supabase Auth. Use the Supabase client SDK on the frontend — these are the underlying API calls it makes.</div>
+
+    <!-- Sign Up -->
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge POST">POST</span>
+        <span class="endpoint-path">/auth/v1/signup</span>
+        <span class="endpoint-summary">Register a new user</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Creates a new user in Supabase Auth. After signup, a row in <code>profiles</code> should be created via a Supabase database trigger.</div>
+        <div class="param-section">
+          <div class="param-label">Request Body</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+            <tr><td class="param-name">email</td><td class="param-type">string</td><td><span class="required-badge">required</span></td><td class="param-desc">User's email address</td></tr>
+            <tr><td class="param-name">password</td><td class="param-type">string</td><td><span class="required-badge">required</span></td><td class="param-desc">Min 6 characters</td></tr>
+          </table>
+        </div>
+        <div class="code-block">
+          <div class="code-block-header"><span class="code-block-label">Request Body</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+          <pre>{
+  <span class="k">"email"</span>: <span class="s">"juan@example.com"</span>,
+  <span class="k">"password"</span>: <span class="s">"securepassword123"</span>
+}</pre>
+        </div>
+        <div class="code-block">
+          <div class="code-block-header"><span class="code-block-label">Response 200</span></div>
+          <pre>{
+  <span class="k">"access_token"</span>: <span class="s">"eyJhbGci..."</span>,
+  <span class="k">"token_type"</span>: <span class="s">"bearer"</span>,
+  <span class="k">"user"</span>: {
+    <span class="k">"id"</span>: <span class="s">"uuid"</span>,
+    <span class="k">"email"</span>: <span class="s">"juan@example.com"</span>
+  }
+}</pre>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">200</span><span class="res-desc">User created, returns access token</span></div>
+          <div class="response-row"><span class="res-code res-4">400</span><span class="res-desc">Email already registered or invalid input</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sign In -->
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge POST">POST</span>
+        <span class="endpoint-path">/auth/v1/token?grant_type=password</span>
+        <span class="endpoint-summary">Sign in with email & password</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Authenticates a user and returns a JWT access token to use in subsequent requests.</div>
+        <div class="code-block">
+          <div class="code-block-header"><span class="code-block-label">Request Body</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+          <pre>{
+  <span class="k">"email"</span>: <span class="s">"juan@example.com"</span>,
+  <span class="k">"password"</span>: <span class="s">"securepassword123"</span>
+}</pre>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">200</span><span class="res-desc">Returns access_token and refresh_token</span></div>
+          <div class="response-row"><span class="res-code res-4">400</span><span class="res-desc">Invalid credentials</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sign Out -->
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge POST">POST</span>
+        <span class="endpoint-path">/auth/v1/logout</span>
+        <span class="endpoint-summary">Sign out current user</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Invalidates the current session token.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires <code>Authorization: Bearer &lt;token&gt;</code> header.</div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">204</span><span class="res-desc">Successfully signed out</span></div>
+          <div class="response-row"><span class="res-code res-4">401</span><span class="res-desc">Missing or invalid token</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILES -->
+  <div class="section" id="profiles">
+    <div class="section-title"><span class="icon">👤</span> Profiles</div>
+    <div class="section-desc">User profile data extending Supabase auth. All endpoints require authentication.</div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge GET">GET</span>
+        <span class="endpoint-path">/profiles?id=eq.<span class="param">{user_id}</span></span>
+        <span class="endpoint-summary">Get a user profile</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Returns profile data for a given user. Use <code>auth_id=eq.{supabase_uid}</code> to fetch by auth ID.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token.</div>
+        <div class="code-block">
+          <div class="code-block-header"><span class="code-block-label">Response 200</span></div>
+          <pre>[{
+  <span class="k">"id"</span>: <span class="s">"uuid"</span>,
+  <span class="k">"auth_id"</span>: <span class="s">"uuid"</span>,
+  <span class="k">"full_name"</span>: <span class="s">"Juan dela Cruz"</span>,
+  <span class="k">"role"</span>: <span class="s">"buyer"</span>,
+  <span class="k">"phone"</span>: <span class="s">"+639171234567"</span>,
+  <span class="k">"avatar_url"</span>: <span class="s">"https://..."</span>,
+  <span class="k">"is_seller"</span>: <span class="n">false</span>,
+  <span class="k">"created_at"</span>: <span class="s">"2025-01-01T00:00:00Z"</span>,
+  <span class="k">"updated_at"</span>: <span class="s">"2025-01-01T00:00:00Z"</span>
+}]</pre>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">200</span><span class="res-desc">Profile array (empty if not found)</span></div>
+          <div class="response-row"><span class="res-code res-4">401</span><span class="res-desc">Unauthorized</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge PATCH">PATCH</span>
+        <span class="endpoint-path">/profiles?id=eq.<span class="param">{user_id}</span></span>
+        <span class="endpoint-summary">Update profile</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Updates profile fields. Only the authenticated user can update their own profile (enforced via RLS).</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token. Row Level Security enforced.</div>
+        <div class="param-section">
+          <div class="param-label">Request Body (all optional)</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+            <tr><td class="param-name">full_name</td><td class="param-type">string</td><td><span class="optional-badge">optional</span></td><td class="param-desc">Display name</td></tr>
+            <tr><td class="param-name">phone</td><td class="param-type">string</td><td><span class="optional-badge">optional</span></td><td class="param-desc">Contact number</td></tr>
+            <tr><td class="param-name">avatar_url</td><td class="param-type">string</td><td><span class="optional-badge">optional</span></td><td class="param-desc">URL from Supabase Storage</td></tr>
+            <tr><td class="param-name">is_seller</td><td class="param-type">boolean</td><td><span class="optional-badge">optional</span></td><td class="param-desc">Promote user to seller role</td></tr>
+          </table>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">200</span><span class="res-desc">Updated profile returned</span></div>
+          <div class="response-row"><span class="res-code res-4">403</span><span class="res-desc">Cannot update another user's profile</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SELLERS -->
+  <div class="section" id="sellers">
+    <div class="section-title"><span class="icon">🏪</span> Seller Profiles</div>
+    <div class="section-desc">Manage seller store information. A user must have <code>is_seller: true</code> in their profile first.</div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge GET">GET</span>
+        <span class="endpoint-path">/seller_profiles</span>
+        <span class="endpoint-summary">List all sellers</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Returns all seller profiles. Public endpoint. Filter by <code>is_open=eq.true</code> to show only open stores.</div>
+        <div class="param-section">
+          <div class="param-label">Query Params</div>
+          <table class="param-table">
+            <tr><th>Param</th><th>Type</th><th>Description</th></tr>
+            <tr><td class="param-name">is_open</td><td class="param-type">boolean</td><td class="param-desc">Filter by open status e.g. <code>is_open=eq.true</code></td></tr>
+            <tr><td class="param-name">select</td><td class="param-type">string</td><td class="param-desc">Select specific columns e.g. <code>select=id,store_name,is_open</code></td></tr>
+          </table>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">200</span><span class="res-desc">Array of seller profiles</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge POST">POST</span>
+        <span class="endpoint-path">/seller_profiles</span>
+        <span class="endpoint-summary">Create seller profile</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Creates a seller profile linked to the authenticated user's profile.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token. User must have <code>is_seller: true</code>.</div>
+        <div class="param-section">
+          <div class="param-label">Request Body</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+            <tr><td class="param-name">profile_id</td><td class="param-type">uuid</td><td><span class="required-badge">required</span></td><td class="param-desc">FK to profiles.id</td></tr>
+            <tr><td class="param-name">store_name</td><td class="param-type">string</td><td><span class="required-badge">required</span></td><td class="param-desc">Display name of the store</td></tr>
+            <tr><td class="param-name">description</td><td class="param-type">string</td><td><span class="optional-badge">optional</span></td><td class="param-desc">Short store description</td></tr>
+            <tr><td class="param-name">address</td><td class="param-type">string</td><td><span class="required-badge">required</span></td><td class="param-desc">Store physical address</td></tr>
+            <tr><td class="param-name">is_open</td><td class="param-type">boolean</td><td><span class="optional-badge">optional</span></td><td class="param-desc">Default: false</td></tr>
+          </table>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">201</span><span class="res-desc">Seller profile created</span></div>
+          <div class="response-row"><span class="res-code res-4">400</span><span class="res-desc">Missing required fields</span></div>
+          <div class="response-row"><span class="res-code res-4">403</span><span class="res-desc">User is not a seller</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge PATCH">PATCH</span>
+        <span class="endpoint-path">/seller_profiles?id=eq.<span class="param">{seller_id}</span></span>
+        <span class="endpoint-summary">Update seller profile</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Update store info or toggle open/closed status.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token. Only the store owner can update.</div>
+        <div class="param-section">
+          <div class="param-label">Request Body (all optional)</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+            <tr><td class="param-name">store_name</td><td class="param-type">string</td><td class="param-desc">New store name</td></tr>
+            <tr><td class="param-name">description</td><td class="param-type">string</td><td class="param-desc">Updated description</td></tr>
+            <tr><td class="param-name">address</td><td class="param-type">string</td><td class="param-desc">Updated address</td></tr>
+            <tr><td class="param-name">is_open</td><td class="param-type">boolean</td><td class="param-desc">Toggle store open/closed</td></tr>
+          </table>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">200</span><span class="res-desc">Updated seller profile</span></div>
+          <div class="response-row"><span class="res-code res-4">403</span><span class="res-desc">Not the store owner</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <div class="section" id="menu">
+    <div class="section-title"><span class="icon">🍔</span> Menu Items</div>
+    <div class="section-desc">Manage food items per seller. Listing is public; creating/editing requires seller auth.</div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge GET">GET</span>
+        <span class="endpoint-path">/menu_items?seller_id=eq.<span class="param">{seller_id}</span></span>
+        <span class="endpoint-summary">List menu items for a seller</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Returns all menu items for a given seller. Add <code>&is_available=eq.true</code> to show only available items.</div>
+        <div class="code-block">
+          <div class="code-block-header"><span class="code-block-label">Response 200</span></div>
+          <pre>[{
+  <span class="k">"id"</span>: <span class="s">"uuid"</span>,
+  <span class="k">"seller_id"</span>: <span class="s">"uuid"</span>,
+  <span class="k">"name"</span>: <span class="s">"Chicken Burger"</span>,
+  <span class="k">"description"</span>: <span class="s">"Crispy fried chicken sandwich"</span>,
+  <span class="k">"price"</span>: <span class="n">150.00</span>,
+  <span class="k">"category"</span>: <span class="s">"Burgers"</span>,
+  <span class="k">"is_available"</span>: <span class="n">true</span>,
+  <span class="k">"image_url"</span>: <span class="s">"https://..."</span>,
+  <span class="k">"created_at"</span>: <span class="s">"2025-01-01T00:00:00Z"</span>,
+  <span class="k">"updated_at"</span>: <span class="s">"2025-01-01T00:00:00Z"</span>
+}]</pre>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">200</span><span class="res-desc">Array of menu items</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge POST">POST</span>
+        <span class="endpoint-path">/menu_items</span>
+        <span class="endpoint-summary">Create a menu item</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Adds a new food item to the seller's menu.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token. Must be the seller who owns this menu.</div>
+        <div class="param-section">
+          <div class="param-label">Request Body</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+            <tr><td class="param-name">seller_id</td><td class="param-type">uuid</td><td><span class="required-badge">required</span></td><td class="param-desc">FK to seller_profiles.id</td></tr>
+            <tr><td class="param-name">name</td><td class="param-type">string</td><td><span class="required-badge">required</span></td><td class="param-desc">Item name</td></tr>
+            <tr><td class="param-name">description</td><td class="param-type">string</td><td><span class="optional-badge">optional</span></td><td class="param-desc">Item description</td></tr>
+            <tr><td class="param-name">price</td><td class="param-type">numeric</td><td><span class="required-badge">required</span></td><td class="param-desc">Price in PHP</td></tr>
+            <tr><td class="param-name">category</td><td class="param-type">string</td><td><span class="optional-badge">optional</span></td><td class="param-desc">e.g. "Burgers", "Drinks"</td></tr>
+            <tr><td class="param-name">is_available</td><td class="param-type">boolean</td><td><span class="optional-badge">optional</span></td><td class="param-desc">Default: true</td></tr>
+            <tr><td class="param-name">image_url</td><td class="param-type">string</td><td><span class="optional-badge">optional</span></td><td class="param-desc">URL from Supabase Storage</td></tr>
+          </table>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">201</span><span class="res-desc">Menu item created</span></div>
+          <div class="response-row"><span class="res-code res-4">400</span><span class="res-desc">Missing required fields</span></div>
+          <div class="response-row"><span class="res-code res-4">403</span><span class="res-desc">Not authorized as seller</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge PATCH">PATCH</span>
+        <span class="endpoint-path">/menu_items?id=eq.<span class="param">{item_id}</span></span>
+        <span class="endpoint-summary">Update a menu item</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Update item details. Commonly used to toggle availability or update price.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token. Only the owning seller can update.</div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">200</span><span class="res-desc">Updated menu item</span></div>
+          <div class="response-row"><span class="res-code res-4">403</span><span class="res-desc">Not the item owner</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge DELETE">DELETE</span>
+        <span class="endpoint-path">/menu_items?id=eq.<span class="param">{item_id}</span></span>
+        <span class="endpoint-summary">Delete a menu item</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Permanently removes a menu item. Consider using <code>is_available: false</code> instead to preserve order history references.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token. Only the owning seller can delete.</div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">204</span><span class="res-desc">Successfully deleted</span></div>
+          <div class="response-row"><span class="res-code res-4">403</span><span class="res-desc">Not the item owner</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDERS -->
+  <div class="section" id="orders">
+    <div class="section-title"><span class="icon">📦</span> Orders</div>
+    <div class="section-desc">Place and manage food orders. Buyers place orders, sellers update status.</div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge GET">GET</span>
+        <span class="endpoint-path">/orders?buyer_id=eq.<span class="param">{user_id}</span></span>
+        <span class="endpoint-summary">List my orders (as buyer)</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Returns all orders placed by the authenticated buyer. Use <code>seller_id=eq.{id}</code> instead to get orders received as a seller.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token.</div>
+        <div class="code-block">
+          <div class="code-block-header"><span class="code-block-label">Response 200</span></div>
+          <pre>[{
+  <span class="k">"id"</span>: <span class="s">"uuid"</span>,
+  <span class="k">"buyer_id"</span>: <span class="s">"uuid"</span>,
+  <span class="k">"seller_id"</span>: <span class="s">"uuid"</span>,
+  <span class="k">"buyer_address_id"</span>: <span class="s">"uuid"</span>,
+  <span class="k">"total_amount"</span>: <span class="n">360.00</span>,
+  <span class="k">"status"</span>: <span class="s">"pending"</span>,
+  <span class="k">"created_at"</span>: <span class="s">"2025-01-01T00:00:00Z"</span>,
+  <span class="k">"updated_at"</span>: <span class="s">"2025-01-01T00:00:00Z"</span>
+}]</pre>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">200</span><span class="res-desc">Array of orders</span></div>
+          <div class="response-row"><span class="res-code res-4">401</span><span class="res-desc">Unauthorized</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge GET">GET</span>
+        <span class="endpoint-path">/orders?id=eq.<span class="param">{order_id}</span>&select=*,order_items(*)</span>
+        <span class="endpoint-summary">Get order with items</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Returns a single order with all its line items using Supabase's nested select.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token. Only buyer or seller of that order can access.</div>
+        <div class="code-block">
+          <div class="code-block-header"><span class="code-block-label">Response 200</span></div>
+          <pre>{
+  <span class="k">"id"</span>: <span class="s">"uuid"</span>,
+  <span class="k">"status"</span>: <span class="s">"confirmed"</span>,
+  <span class="k">"total_amount"</span>: <span class="n">360.00</span>,
+  <span class="k">"order_items"</span>: [
+    {
+      <span class="k">"id"</span>: <span class="s">"uuid"</span>,
+      <span class="k">"menu_item_id"</span>: <span class="s">"uuid"</span>,
+      <span class="k">"quantity"</span>: <span class="n">2</span>,
+      <span class="k">"unit_price"</span>: <span class="n">150.00</span>
+    }
+  ]
+}</pre>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">200</span><span class="res-desc">Order with nested items</span></div>
+          <div class="response-row"><span class="res-code res-4">404</span><span class="res-desc">Order not found</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge POST">POST</span>
+        <span class="endpoint-path">/orders</span>
+        <span class="endpoint-summary">Place an order</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Creates an order. After creating the order, POST each item to <code>/order_items</code> with the returned order ID. Consider wrapping both in a Supabase Edge Function for atomicity.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token.</div>
+        <div class="param-section">
+          <div class="param-label">Request Body</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+            <tr><td class="param-name">buyer_id</td><td class="param-type">uuid</td><td><span class="required-badge">required</span></td><td class="param-desc">FK to profiles.id</td></tr>
+            <tr><td class="param-name">seller_id</td><td class="param-type">uuid</td><td><span class="required-badge">required</span></td><td class="param-desc">FK to seller_profiles.id</td></tr>
+            <tr><td class="param-name">buyer_address_id</td><td class="param-type">uuid</td><td><span class="required-badge">required</span></td><td class="param-desc">FK to buyer_address.id</td></tr>
+            <tr><td class="param-name">total_amount</td><td class="param-type">numeric</td><td><span class="required-badge">required</span></td><td class="param-desc">Sum of all item totals</td></tr>
+            <tr><td class="param-name">status</td><td class="param-type">enum</td><td><span class="optional-badge">optional</span></td><td class="param-desc">Default: "pending"</td></tr>
+          </table>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">201</span><span class="res-desc">Order created, returns order with ID</span></div>
+          <div class="response-row"><span class="res-code res-4">400</span><span class="res-desc">Missing fields or invalid address</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge PATCH">PATCH</span>
+        <span class="endpoint-path">/orders?id=eq.<span class="param">{order_id}</span></span>
+        <span class="endpoint-summary">Update order status</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Used by sellers to progress an order through statuses.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token. Only the receiving seller can update status.</div>
+        <div class="param-section">
+          <div class="param-label">Status Flow</div>
+          <table class="param-table">
+            <tr><th>Status</th><th>Description</th></tr>
+            <tr><td class="param-name">pending</td><td class="param-desc">Order placed, awaiting seller confirmation</td></tr>
+            <tr><td class="param-name">confirmed</td><td class="param-desc">Seller accepted the order</td></tr>
+            <tr><td class="param-name">preparing</td><td class="param-desc">Food is being prepared</td></tr>
+            <tr><td class="param-name">ready</td><td class="param-desc">Ready for pickup/delivery</td></tr>
+            <tr><td class="param-name">delivered</td><td class="param-desc">Order completed</td></tr>
+            <tr><td class="param-name">cancelled</td><td class="param-desc">Order cancelled by buyer or seller</td></tr>
+          </table>
+        </div>
+        <div class="code-block">
+          <div class="code-block-header"><span class="code-block-label">Request Body</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+          <pre>{
+  <span class="k">"status"</span>: <span class="s">"confirmed"</span>
+}</pre>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">200</span><span class="res-desc">Updated order</span></div>
+          <div class="response-row"><span class="res-code res-4">403</span><span class="res-desc">Not authorized to update this order</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADDRESSES -->
+  <div class="section" id="addresses">
+    <div class="section-title"><span class="icon">📍</span> Buyer Addresses</div>
+    <div class="section-desc">Saved delivery addresses per buyer. A buyer can have multiple addresses.</div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge GET">GET</span>
+        <span class="endpoint-path">/buyer_address?buyer_id=eq.<span class="param">{user_id}</span></span>
+        <span class="endpoint-summary">List saved addresses</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Returns all saved delivery addresses for the authenticated buyer.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token.</div>
+        <div class="code-block">
+          <div class="code-block-header"><span class="code-block-label">Response 200</span></div>
+          <pre>[{
+  <span class="k">"id"</span>: <span class="s">"uuid"</span>,
+  <span class="k">"buyer_id"</span>: <span class="s">"uuid"</span>,
+  <span class="k">"street"</span>: <span class="s">"123 Mango Ave"</span>,
+  <span class="k">"barangay"</span>: <span class="s">"Lahug"</span>,
+  <span class="k">"city"</span>: <span class="s">"Cebu City"</span>,
+  <span class="k">"country"</span>: <span class="s">"Philippines"</span>,
+  <span class="k">"postal_code"</span>: <span class="s">"6000"</span>,
+  <span class="k">"latitude"</span>: <span class="n">10.3157</span>,
+  <span class="k">"longitude"</span>: <span class="n">123.8854</span>,
+  <span class="k">"created_at"</span>: <span class="s">"2025-01-01T00:00:00Z"</span>
+}]</pre>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">200</span><span class="res-desc">Array of addresses</span></div>
+          <div class="response-row"><span class="res-code res-4">401</span><span class="res-desc">Unauthorized</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge POST">POST</span>
+        <span class="endpoint-path">/buyer_address</span>
+        <span class="endpoint-summary">Add a new address</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Saves a new delivery address for the buyer.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token.</div>
+        <div class="param-section">
+          <div class="param-label">Request Body</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+            <tr><td class="param-name">buyer_id</td><td class="param-type">uuid</td><td><span class="required-badge">required</span></td><td class="param-desc">FK to profiles.id</td></tr>
+            <tr><td class="param-name">street</td><td class="param-type">string</td><td><span class="required-badge">required</span></td><td class="param-desc">Street address</td></tr>
+            <tr><td class="param-name">barangay</td><td class="param-type">string</td><td><span class="required-badge">required</span></td><td class="param-desc">Barangay</td></tr>
+            <tr><td class="param-name">city</td><td class="param-type">string</td><td><span class="required-badge">required</span></td><td class="param-desc">City</td></tr>
+            <tr><td class="param-name">country</td><td class="param-type">string</td><td><span class="optional-badge">optional</span></td><td class="param-desc">Default: "Philippines"</td></tr>
+            <tr><td class="param-name">postal_code</td><td class="param-type">string</td><td><span class="optional-badge">optional</span></td><td class="param-desc">Postal/ZIP code</td></tr>
+            <tr><td class="param-name">latitude</td><td class="param-type">float</td><td><span class="optional-badge">optional</span></td><td class="param-desc">For map/delivery features</td></tr>
+            <tr><td class="param-name">longitude</td><td class="param-type">float</td><td><span class="optional-badge">optional</span></td><td class="param-desc">For map/delivery features</td></tr>
+          </table>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">201</span><span class="res-desc">Address saved</span></div>
+          <div class="response-row"><span class="res-code res-4">400</span><span class="res-desc">Missing required fields</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge DELETE">DELETE</span>
+        <span class="endpoint-path">/buyer_address?id=eq.<span class="param">{address_id}</span></span>
+        <span class="endpoint-summary">Delete an address</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Removes a saved address. Cannot delete an address that is referenced by an existing order.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token. Only the address owner can delete.</div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">204</span><span class="res-desc">Successfully deleted</span></div>
+          <div class="response-row"><span class="res-code res-4">409</span><span class="res-desc">Address is in use by an existing order</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVIEWS -->
+  <div class="section" id="reviews">
+    <div class="section-title"><span class="icon">⭐</span> Reviews</div>
+    <div class="section-desc">Post-order reviews. One review per order, only by the buyer of that order.</div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge POST">POST</span>
+        <span class="endpoint-path">/reviews</span>
+        <span class="endpoint-summary">Create a review</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">Submits a review for a completed order. Only allowed when order status is <code>delivered</code>.</div>
+        <div class="auth-note"><span class="icon">🔒</span> Requires Bearer token. Only the buyer of that order can review.</div>
+        <div class="param-section">
+          <div class="param-label">Request Body</div>
+          <table class="param-table">
+            <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+            <tr><td class="param-name">order_id</td><td class="param-type">uuid</td><td><span class="required-badge">required</span></td><td class="param-desc">FK to orders.id</td></tr>
+            <tr><td class="param-name">reviewer_id</td><td class="param-type">uuid</td><td><span class="required-badge">required</span></td><td class="param-desc">FK to profiles.id</td></tr>
+            <tr><td class="param-name">rating</td><td class="param-type">int</td><td><span class="required-badge">required</span></td><td class="param-desc">1 to 5</td></tr>
+            <tr><td class="param-name">comment</td><td class="param-type">string</td><td><span class="optional-badge">optional</span></td><td class="param-desc">Written review (nullable)</td></tr>
+          </table>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">201</span><span class="res-desc">Review created</span></div>
+          <div class="response-row"><span class="res-code res-4">400</span><span class="res-desc">Order not delivered yet or already reviewed</span></div>
+          <div class="response-row"><span class="res-code res-4">403</span><span class="res-desc">Not the buyer of this order</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggle(this)">
+        <span class="method-badge GET">GET</span>
+        <span class="endpoint-path">/reviews?order_id=eq.<span class="param">{seller_id}</span></span>
+        <span class="endpoint-summary">Get reviews for a seller</span>
+        <span class="chevron">▶</span>
+      </div>
+      <div class="endpoint-body">
+        <div class="endpoint-desc">To get all reviews for a seller, join through orders: <code>/reviews?select=*,orders!inner(seller_id)&orders.seller_id=eq.{seller_id}</code>. Public endpoint.</div>
+        <div class="code-block">
+          <div class="code-block-header"><span class="code-block-label">Response 200</span></div>
+          <pre>[{
+  <span class="k">"id"</span>: <span class="s">"uuid"</span>,
+  <span class="k">"order_id"</span>: <span class="s">"uuid"</span>,
+  <span class="k">"reviewer_id"</span>: <span class="s">"uuid"</span>,
+  <span class="k">"rating"</span>: <span class="n">5</span>,
+  <span class="k">"comment"</span>: <span class="s">"Great food, fast delivery!"</span>,
+  <span class="k">"created_at"</span>: <span class="s">"2025-01-01T00:00:00Z"</span>
+}]</pre>
+        </div>
+        <div class="responses">
+          <div class="param-label">Responses</div>
+          <div class="response-row"><span class="res-code res-2">200</span><span class="res-desc">Array of reviews</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+function toggle(header) {
+  const endpoint = header.parentElement;
+  endpoint.classList.toggle('open');
+}
+
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.textContent = 'copied!';
+    setTimeout(() => btn.textContent = 'copy', 1500);
+  });
+}
+</script>
+</body>
+</html>
