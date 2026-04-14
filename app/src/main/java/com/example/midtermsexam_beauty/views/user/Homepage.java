@@ -23,7 +23,7 @@ public class Homepage extends AppCompatActivity {
     private final ArrayList<Product> popularProducts = new ArrayList<>();
     private final ArrayList<Product> featuredProducts = new ArrayList<>();
     ImageButton proceedToFeatured, proceedToRatings,
-            proceedToSkinTypes, proceedToPayment;
+            proceedToSkinTypes, proceedToPayment, proceedToProfile;
 
 
     @SuppressLint("SuspiciousIndentation")
@@ -41,6 +41,7 @@ public class Homepage extends AppCompatActivity {
         proceedToPayment = findViewById(R.id.toPayment);
         proceedToRatings = findViewById(R.id.toRatings);
         proceedToFeatured = findViewById(R.id.toFeatured);
+        proceedToProfile = findViewById(R.id.toProfile);
 
         featuredProducts.addAll(Product.getDefaultProducts(this));
         popularProducts.addAll(Product.getPopularProducts(this));
@@ -104,6 +105,11 @@ public class Homepage extends AppCompatActivity {
 
         proceedToPayment.setOnClickListener(view -> {
             Intent intent = new Intent(Homepage.this, Checkout.class);
+            startActivity(intent);
+        });
+
+        proceedToProfile.setOnClickListener(view -> {
+            Intent intent = new Intent(Homepage.this, UserProfile.class);
             startActivity(intent);
         });
     }

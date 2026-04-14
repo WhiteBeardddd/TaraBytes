@@ -41,6 +41,24 @@
             android:textStyle="bold"
             tools:ignore="HardcodedText" />
 
+
+        <ImageButton
+            android:id="@+id/toProfile"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:padding="10dp"
+            android:layout_marginLeft="7dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_profile_bg_green"
+            android:contentDescription="Profile Icon"
+            android:src="@drawable/ic_profile"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
     </LinearLayout>
 
     <!-- Scrollable Content -->
@@ -62,29 +80,44 @@
 
             <!-- Featured Products -->
 
+
             <LinearLayout
                 android:id="@+id/homepage_search_bar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="48dp"
+                android:layout_margin="12dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/border_inv">
 
                 <ImageView
                     android:id="@+id/search_bar_icon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_gravity="center_vertical"
                     app:srcCompat="@android:drawable/ic_menu_search"
+                    android:tint="#9E9E9E"
                     tools:ignore="ContentDescription" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="Search (e.g. chicken adobo)"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#9E9E9E"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textSize="14sp"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
+                    tools:ignore="HardcodedText" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="250dp"
-                        android:layout_height="50dp"
-                        android:hint="chicken adobo"
-                        tools:ignore="HardcodedText" />
-                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <TextView
@@ -152,7 +185,7 @@
             android:background="@drawable/border_inv"
             android:elevation="8dp"
             android:src="@drawable/home_icon"
-            android:tint="#FF5722"
+            app:tint="#FF5722"
             tools:ignore="ContentDescription" />
 
         <ImageButton
@@ -164,7 +197,7 @@
             android:background="@drawable/border_inv"
             android:elevation="8dp"
             android:src="@drawable/popular_icon"
-            android:tint="#9E9E9E"
+            app:tint="#9E9E9E"
             tools:ignore="ContentDescription" />
 
         <ImageButton
@@ -176,7 +209,7 @@
             android:background="@drawable/border_inv"
             android:elevation="8dp"
             android:src="@drawable/skin_type_icon"
-            android:tint="#9E9E9E"
+            app:tint="#9E9E9E"
             tools:ignore="ContentDescription" />
 
         <ImageButton
