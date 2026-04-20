@@ -1,0 +1,106 @@
+{
+  "popular": [
+    {
+      "imageID": "pop_001",
+      "name": "Spicy Chicken Burger",
+      "description": "Grilled chicken breast with spicy mayo, lettuce, and pickles on a brioche bun.",
+      "price": 8.99,
+      "category": "Burgers",
+      "availability": true
+    },
+    {
+      "imageID": "pop_002",
+      "name": "Truffle Mushroom Pizza",
+      "description": "Wood-fired pizza with truffle oil, wild mushrooms, mozzarella, and fresh arugula.",
+      "price": 14.50,
+      "category": "Pizza",
+      "availability": true
+    },
+    {
+      "imageID": "pop_003",
+      "name": "Mango Sticky Rice",
+      "description": "Sweet coconut sticky rice served with fresh ripe mango and sesame seeds.",
+      "price": 6.75,
+      "category": "Desserts",
+      "availability": false
+    }
+  ],
+  "bestSellers": [
+    {
+      "imageID": "bs_001",
+      "name": "Classic Cheeseburger",
+      "description": "Beef patty, American cheese, caramelized onions, lettuce, tomato, and special sauce.",
+      "price": 9.49,
+      "category": "Burgers",
+      "availability": true
+    },
+    {
+      "imageID": "bs_002",
+      "name": "Pepperoni Feast Pizza",
+      "description": "Double pepperoni, mozzarella, tomato sauce, and oregano on a thin crust.",
+      "price": 13.99,
+      "category": "Pizza",
+      "availability": true
+    },
+    {
+      "imageID": "bs_003",
+      "name": "Chocolate Lava Cake",
+      "description": "Warm chocolate cake with a molten center, served with vanilla ice cream.",
+      "price": 5.99,
+      "category": "Desserts",
+      "availability": true
+    }
+  ],
+  "vendor1Meals": [
+    {
+      "imageID": "v1_001",
+      "name": "Vegan Buddha Bowl",
+      "description": "Quinoa, roasted chickpeas, avocado, kale, sweet potato, and tahini dressing.",
+      "price": 11.25,
+      "category": "Healthy",
+      "availability": true
+    },
+    {
+      "imageID": "v1_002",
+      "name": "BBQ Pulled Pork Sandwich",
+      "description": "Slow-cooked pulled pork with tangy BBQ sauce, coleslaw, and pickles.",
+      "price": 10.99,
+      "category": "Sandwiches",
+      "availability": true
+    },
+    {
+      "imageID": "v1_003",
+      "name": "Shrimp Tacos (3 pcs)",
+      "description": "Grilled shrimp, cabbage slaw, chipotle crema, and fresh salsa on corn tortillas.",
+      "price": 12.50,
+      "category": "Tacos",
+      "availability": false
+    }
+  ],
+  "vendor2Meals": [
+    {
+      "imageID": "v2_001",
+      "name": "Butter Chicken with Naan",
+      "description": "Creamy tomato-based butter chicken served with garlic naan and basmati rice.",
+      "price": 15.99,
+      "category": "Indian",
+      "availability": true
+    },
+    {
+      "imageID": "v2_002",
+      "name": "Avocado Toast",
+      "description": "Sourdough toast with mashed avocado, poached egg, chili flakes, and lime.",
+      "price": 7.50,
+      "category": "Breakfast",
+      "availability": true
+    },
+    {
+      "imageID": "v2_003",
+      "name": "Beef Bulgogi Bowl",
+      "description": "Marinated grilled beef, steamed rice, kimchi, cucumber, and sesame seeds.",
+      "price": 13.75,
+      "category": "Korean",
+      "availability": true
+    }
+  ]
+}
