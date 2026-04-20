@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.adapters.SkinTypeCard;
 import com.example.midtermsexam_beauty.models.Product;
+import com.example.midtermsexam_beauty.adapters.NavbarHelper;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -33,12 +34,11 @@ public class SkinType extends AppCompatActivity {
         setContentView(R.layout.activity_skin_type);
         hideSystemUI();
 
+        // Initialize Navbar
+        NavbarHelper.setupNavbar(this);
+
         // Initialize Buttons
         ImageButton toPrevious = findViewById(R.id.back_btn);
-        ImageButton proceedToFeatured = findViewById(R.id.nav_featured);
-        ImageButton proceedToRatings = findViewById(R.id.nav_ratings);
-        ImageButton proceedToHome = findViewById(R.id.nav_home);
-        ImageButton proceedToCheckout = findViewById(R.id.nav_payment);
 
         // Initialize RecyclerView & Spinner
         RecyclerView skinTypeListView = findViewById(R.id.skinTypeListView);
@@ -79,10 +79,6 @@ public class SkinType extends AppCompatActivity {
 
         // Navigation Buttons
         toPrevious.setOnClickListener(view -> startActivity(new Intent(SkinType.this, Homepage.class)));
-        proceedToRatings.setOnClickListener(view -> startActivity(new Intent(SkinType.this, PopularProducts.class)));
-        proceedToFeatured.setOnClickListener(view -> startActivity(new Intent(SkinType.this, FeaturedProducts.class)));
-        proceedToHome.setOnClickListener(view -> startActivity(new Intent(SkinType.this, Homepage.class)));
-        proceedToCheckout.setOnClickListener(view -> startActivity(new Intent(SkinType.this, Checkout.class)));
     }
 
     private void hideSystemUI() {

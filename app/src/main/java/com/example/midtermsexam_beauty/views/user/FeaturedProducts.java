@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.adapters.PopularAndFeaturedAdapter;
 import com.example.midtermsexam_beauty.models.Product;
+import com.example.midtermsexam_beauty.adapters.NavbarHelper;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class FeaturedProducts extends AppCompatActivity {
 
     private final ArrayList<Product> featuredProducts = new ArrayList<>();
 
-    ImageButton toPrevious, proceedToRatings, proceedToHome, proceedToSkinTypes, proceedToCheckout;
+    ImageButton toPrevious;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,10 @@ public class FeaturedProducts extends AppCompatActivity {
         setContentView(R.layout.activity_featured_products);
         hideSystemUI();
 
+        // Initialize Navbar
+        NavbarHelper.setupNavbar(this);
+
         toPrevious = findViewById(R.id.back_btn);
-        proceedToRatings = findViewById(R.id.nav_ratings);
-        proceedToHome = findViewById(R.id.nav_home);
-        proceedToSkinTypes = findViewById(R.id.nav_skin_types);
-        proceedToCheckout = findViewById(R.id.nav_payment);
 
         ListView featuredListView = findViewById(R.id.featured_recycler);
 
@@ -43,10 +43,6 @@ public class FeaturedProducts extends AppCompatActivity {
         featuredListView.setAdapter(adapter);
 
         toPrevious.setOnClickListener(view -> startActivity(new Intent(FeaturedProducts.this, Homepage.class)));
-        proceedToHome.setOnClickListener(view -> startActivity(new Intent(FeaturedProducts.this, Homepage.class)));
-        proceedToRatings.setOnClickListener(view -> startActivity(new Intent(FeaturedProducts.this, PopularProducts.class)));
-        proceedToSkinTypes.setOnClickListener(view -> startActivity(new Intent(FeaturedProducts.this, SkinType.class)));
-        proceedToCheckout.setOnClickListener(view -> startActivity(new Intent(FeaturedProducts.this, Checkout.class)));
     }
 
     private void hideSystemUI() {

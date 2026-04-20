@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.adapters.ProductCard;
 import com.example.midtermsexam_beauty.models.Product;
-import com.example.midtermsexam_beauty.utilities.NavbarHelper;
+import com.example.midtermsexam_beauty.adapters.NavbarHelper;
 
 import java.util.ArrayList;
 
