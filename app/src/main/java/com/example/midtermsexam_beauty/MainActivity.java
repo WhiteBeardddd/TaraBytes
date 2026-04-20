@@ -8,7 +8,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.example.midtermsexam_beauty.display.Homepage;
 import com.example.midtermsexam_beauty.display.LoginActivity;
 import com.example.midtermsexam_beauty.display.RegisterActivity;
 
@@ -50,4 +49,6 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
+    public static class MealParser {
+    }
 }
