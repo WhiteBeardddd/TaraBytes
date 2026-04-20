@@ -1,4 +1,4 @@
-package com.example.midtermsexam_beauty.display;
+package com.example.midtermsexam_beauty.views.user;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.adapters.ProductCard;
 import com.example.midtermsexam_beauty.models.Product;
+import com.example.midtermsexam_beauty.utilities.NavbarHelper;
 
 import java.util.ArrayList;
 
@@ -22,8 +23,7 @@ public class Homepage extends AppCompatActivity {
 
     private final ArrayList<Product> popularProducts = new ArrayList<>();
     private final ArrayList<Product> featuredProducts = new ArrayList<>();
-    ImageButton proceedToFeatured, proceedToRatings,
-            proceedToSkinTypes, proceedToPayment;
+    ImageButton proceedToProfile;
 
 
     @SuppressLint("SuspiciousIndentation")
@@ -37,10 +37,10 @@ public class Homepage extends AppCompatActivity {
         RecyclerView featuredListView = findViewById(R.id.featured_recycler);
         RecyclerView popularListView = findViewById(R.id.popular_recycler);
 
-        proceedToSkinTypes = findViewById(R.id.toSkinTypes);
-        proceedToPayment = findViewById(R.id.toPayment);
-        proceedToRatings = findViewById(R.id.toRatings);
-        proceedToFeatured = findViewById(R.id.toFeatured);
+        proceedToProfile = findViewById(R.id.toProfile);
+
+        // Setup common navbar
+        NavbarHelper.setupNavbar(this);
 
         featuredProducts.addAll(Product.getDefaultProducts(this));
         popularProducts.addAll(Product.getPopularProducts(this));
@@ -78,27 +78,8 @@ public class Homepage extends AppCompatActivity {
         featuredListView.setAdapter(featuredAdapter);
         popularListView.setAdapter(popularAdapter);
 
-
-
-        // Navigation Buttons
-
-        proceedToRatings.setOnClickListener(view -> {
-            Intent intent = new Intent(Homepage.this, PopularProducts.class);
-            startActivity(intent);
-        });
-
-        proceedToFeatured.setOnClickListener(view -> {
-            Intent intent = new Intent(Homepage.this, FeaturedProducts.class);
-            startActivity(intent);
-        });
-
-        proceedToSkinTypes.setOnClickListener(view -> {
-            Intent intent = new Intent(Homepage.this, SkinType.class);
-            startActivity(intent);
-        });
-
-        proceedToPayment.setOnClickListener(view -> {
-            Intent intent = new Intent(Homepage.this, Checkout.class);
+        proceedToProfile.setOnClickListener(view -> {
+            Intent intent = new Intent(Homepage.this, UserProfile.class);
             startActivity(intent);
         });
     }
@@ -112,4 +93,3 @@ public class Homepage extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 }
-
