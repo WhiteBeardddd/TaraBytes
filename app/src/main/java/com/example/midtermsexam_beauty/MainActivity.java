@@ -6,10 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
-import com.example.midtermsexam_beauty.display.Homepage;
-import com.example.midtermsexam_beauty.display.LoginActivity;
-import com.example.midtermsexam_beauty.display.RegisterActivity;
+import com.example.midtermsexam_beauty.views.user.LoginActivity;
+import com.example.midtermsexam_beauty.views.user.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity {
     Button logInBtn;
@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
