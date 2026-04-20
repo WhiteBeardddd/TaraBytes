@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.midtermsexam_beauty.R;
-import com.example.midtermsexam_beauty.models.Product;
+import com.example.midtermsexam_beauty.models.OldProduct;
 import com.example.midtermsexam_beauty.views.user.ViewProductDetails;
 
 import java.util.ArrayList;
@@ -22,9 +22,9 @@ import java.util.List;
 public class SkinTypeCard extends RecyclerView.Adapter<SkinTypeCard.ViewHolder> {
 
     private final Context context;
-    private final List<Product> productList;
+    private final List<OldProduct> productList;
 
-    public SkinTypeCard(Context context, List<Product> productList) {
+    public SkinTypeCard(Context context, List<OldProduct> productList) {
         this.context = context;
         this.productList = new ArrayList<>(productList);
     }
@@ -38,7 +38,7 @@ public class SkinTypeCard extends RecyclerView.Adapter<SkinTypeCard.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product product = productList.get(position);
+        OldProduct product = productList.get(position);
         holder.bind(product);
     }
 
@@ -48,7 +48,7 @@ public class SkinTypeCard extends RecyclerView.Adapter<SkinTypeCard.ViewHolder> 
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateList(List<Product> newList) {
+    public void updateList(List<OldProduct> newList) {
         productList.clear();
         productList.addAll(newList);
         notifyDataSetChanged();
@@ -70,7 +70,7 @@ public class SkinTypeCard extends RecyclerView.Adapter<SkinTypeCard.ViewHolder> 
         }
 
         @SuppressLint({"DefaultLocale", "SetTextI18n"})
-        public void bind(Product product) {
+        public void bind(OldProduct product) {
             displayImage.setImageResource(product.getImageId());
             productName.setText(product.getName());
             productPrice.setText(String.format("₱%.2f", product.getPrice()));

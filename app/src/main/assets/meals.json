@@ -23,6 +23,102 @@
       "price": 6.75,
       "category": "Desserts",
       "availability": false
+    },
+    {
+      "imageID": "pop_004",
+      "name": "Loaded Nachos",
+      "description": "Tortilla chips topped with melted cheese, jalapeños, guacamole, sour cream, and salsa.",
+      "price": 9.99,
+      "category": "Appetizers",
+      "availability": true
+    },
+    {
+      "imageID": "pop_005",
+      "name": "Pad Thai",
+      "description": "Stir-fried rice noodles with shrimp, tofu, bean sprouts, peanuts, and tamarind sauce.",
+      "price": 12.99,
+      "category": "Noodles",
+      "availability": true
+    },
+    {
+      "imageID": "pop_006",
+      "name": "Margherita Pizza",
+      "description": "Fresh mozzarella, tomato sauce, basil, and a drizzle of olive oil.",
+      "price": 11.99,
+      "category": "Pizza",
+      "availability": true
+    },
+    {
+      "imageID": "pop_007",
+      "name": "Chicken Caesar Wrap",
+      "description": "Grilled chicken, romaine lettuce, parmesan cheese, and Caesar dressing in a tortilla wrap.",
+      "price": 8.49,
+      "category": "Wraps",
+      "availability": true
+    },
+    {
+      "imageID": "pop_008",
+      "name": "French Fries",
+      "description": "Crispy golden fries seasoned with sea salt and served with ketchup.",
+      "price": 3.99,
+      "category": "Sides",
+      "availability": true
+    },
+    {
+      "imageID": "pop_009",
+      "name": "Fish and Chips",
+      "description": "Beer-battered cod served with thick-cut fries, tartar sauce, and lemon wedges.",
+      "price": 13.49,
+      "category": "Seafood",
+      "availability": false
+    },
+    {
+      "imageID": "pop_010",
+      "name": "Greek Salad",
+      "description": "Cucumber, tomato, red onion, olives, feta cheese, and oregano with vinaigrette.",
+      "price": 7.99,
+      "category": "Salads",
+      "availability": true
+    },
+    {
+      "imageID": "pop_011",
+      "name": "Buffalo Wings (6 pcs)",
+      "description": "Crispy chicken wings tossed in spicy buffalo sauce, served with ranch and celery sticks.",
+      "price": 8.99,
+      "category": "Appetizers",
+      "availability": true
+    },
+    {
+      "imageID": "pop_012",
+      "name": "Chocolate Chip Pancakes",
+      "description": "Fluffy pancakes loaded with chocolate chips, topped with whipped cream and syrup.",
+      "price": 7.49,
+      "category": "Breakfast",
+      "availability": true
+    },
+    {
+      "imageID": "pop_013",
+      "name": "Beef Lasagna",
+      "description": "Layers of pasta, seasoned ground beef, ricotta, mozzarella, and marinara sauce.",
+      "price": 14.99,
+      "category": "Italian",
+      "availability": true
+    },
+    {
+      "imageID": "pop_014",
+      "name": "Veggie Spring Rolls (4 pcs)",
+      "description": "Crispy rolls filled with cabbage, carrots, mushrooms, and glass noodles.",
+      "price": 5.99,
+      "category": "Appetizers",
+      "availability": true
+    },
+    {
+      "imageID": "pop_015",
+      "name": "Iced Caramel Macchiato",
+      "description": "Espresso with vanilla syrup, cold milk, and caramel drizzle over ice.",
+      "price": 4.99,
+      "category": "Beverages",
+      "availability": true
     }
   ],
   "bestSellers": [
@@ -48,6 +144,102 @@
       "description": "Warm chocolate cake with a molten center, served with vanilla ice cream.",
       "price": 5.99,
       "category": "Desserts",
+      "availability": true
+    },
+    {
+      "imageID": "bs_004",
+      "name": "Grilled Salmon Bowl",
+      "description": "Grilled salmon over rice with avocado, edamame, cucumber, and sesame ginger dressing.",
+      "price": 15.49,
+      "category": "Bowls",
+      "availability": true
+    },
+    {
+      "imageID": "bs_005",
+      "name": "Mac & Cheese",
+      "description": "Creamy cheddar and parmesan cheese sauce with elbow macaroni, topped with breadcrumbs.",
+      "price": 6.99,
+      "category": "Sides",
+      "availability": true
+    },
+    {
+      "imageID": "bs_006",
+      "name": "Hawaiian Pizza",
+      "description": "Ham, pineapple, mozzarella, and tomato sauce on a golden crust.",
+      "price": 13.49,
+      "category": "Pizza",
+      "availability": true
+    },
+    {
+      "imageID": "bs_007",
+      "name": "Chicken Tenders (4 pcs)",
+      "description": "Crispy chicken tenders served with honey mustard or BBQ sauce.",
+      "price": 7.99,
+      "category": "Appetizers",
+      "availability": true
+    },
+    {
+      "imageID": "bs_008",
+      "name": "Caesar Salad",
+      "description": "Romaine lettuce, croutons, parmesan cheese, and creamy Caesar dressing.",
+      "price": 7.49,
+      "category": "Salads",
+      "availability": true
+    },
+    {
+      "imageID": "bs_009",
+      "name": "Philly Cheesesteak",
+      "description": "Thinly sliced beef, melted provolone, grilled onions and peppers on a hoagie roll.",
+      "price": 11.99,
+      "category": "Sandwiches",
+      "availability": false
+    },
+    {
+      "imageID": "bs_010",
+      "name": "Onion Rings",
+      "description": "Beer-battered onion rings served with chipotle dipping sauce.",
+      "price": 4.49,
+      "category": "Sides",
+      "availability": true
+    },
+    {
+      "imageID": "bs_011",
+      "name": "Shrimp Scampi Pasta",
+      "description": "Garlic butter shrimp over linguine with white wine, lemon, and parsley.",
+      "price": 16.99,
+      "category": "Pasta",
+      "availability": true
+    },
+    {
+      "imageID": "bs_012",
+      "name": "Fruit Smoothie Bowl",
+      "description": "Blended acai topped with granola, banana, strawberries, and coconut flakes.",
+      "price": 8.99,
+      "category": "Breakfast",
+      "availability": true
+    },
+    {
+      "imageID": "bs_013",
+      "name": "Chicken Parmesan",
+      "description": "Breaded chicken breast topped with marinara and melted mozzarella, served with spaghetti.",
+      "price": 14.99,
+      "category": "Italian",
+      "availability": true
+    },
+    {
+      "imageID": "bs_014",
+      "name": "Mozzarella Sticks (6 pcs)",
+      "description": "Breaded mozzarella sticks fried golden, served with marinara sauce.",
+      "price": 6.49,
+      "category": "Appetizers",
+      "availability": true
+    },
+    {
+      "imageID": "bs_015",
+      "name": "Strawberry Lemonade",
+      "description": "Fresh lemonade blended with ripe strawberries and mint leaves.",
+      "price": 3.99,
+      "category": "Beverages",
       "availability": true
     }
   ],

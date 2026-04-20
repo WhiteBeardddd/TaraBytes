@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,68 +17,71 @@ import com.example.midtermsexam_beauty.R;
 
 public class ViewProductDetails extends AppCompatActivity {
     ImageView productImage;
-    TextView productName, productPrice, productDescription,
-    productRating, productCategory, productSkinType;
-    ImageButton toPrevious, proceedToFeatured, proceedToHome,
-            proceedToRatings, proceedToSkinTypes, proceedToCheckout;
+    TextView productName, productPrice, productDescription, productCategory, productQuantity;
+    Button addBtn, minusBtn, confirmBtn;
+
+    int currentQuantity = 0;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_view_product_details);
+        setContentView(R.layout.product_view_details);
         hideSystemUI();
 
-        productImage = findViewById(R.id.display_image);
-        productName = findViewById(R.id.productName);
-        productPrice = findViewById(R.id.productPrice);
-        productDescription = findViewById(R.id.productDescription);
-        productRating = findViewById(R.id.productRating);
-        productCategory = findViewById(R.id.productCategory);
-        productSkinType = findViewById(R.id.productSkinType);
+        productImage = findViewById(R.id.product_image);
+        productName = findViewById(R.id.product_name);
+        productPrice = findViewById(R.id.product_price);
+        productDescription = findViewById(R.id.product_description);
+        productCategory = findViewById(R.id.product_category);
 
+        addBtn = findViewById(R.id.add_btn);
+        productQuantity = findViewById(R.id.product_quantity);
+        minusBtn = findViewById(R.id.minus_btn);
+        confirmBtn = findViewById(R.id.confirm_buy_btn);
 
-        //Navigation//
-        toPrevious = findViewById(R.id.back_btn);
-        proceedToFeatured = findViewById(R.id.toFeatured);
-        proceedToHome = findViewById(R.id.toHome);
-        proceedToRatings = findViewById(R.id.toRatings);
-        proceedToSkinTypes = findViewById(R.id.toSkinTypes);
-        proceedToCheckout = findViewById(R.id.toPayment);
 
         // Get product details from intent
         Intent intent = getIntent();
-            int imageId = intent.getIntExtra("imageId", 0);
-            String name = intent.getStringExtra("name");
-            float price = intent.getFloatExtra("price", 0.0f);
-            String description = intent.getStringExtra("description");
-            float rating = intent.getFloatExtra("rating", 0.0f);
-            String category = intent.getStringExtra("category");
-            String skin_type = intent.getStringExtra("skin_type");
+        int imageId = intent.getIntExtra("imageId", 0);
+        String name = intent.getStringExtra("name");
+        float price = intent.getFloatExtra("price", 0.0f);
+        String description = intent.getStringExtra("description");
+        String category = intent.getStringExtra("category");
 
-            // SET VALUES
-            productImage.setImageResource(imageId);
-            productName.setText(name);
-            productPrice.setText("₱" + price);
-            productDescription.setText(description);
-            productRating.setText("Rating: " + rating);
-            productCategory.setText("Category: " + category);
-            productSkinType.setText("Skin Type: " + skin_type);
+        // SET VALUES
+        productImage.setImageResource(imageId);
+        productName.setText(name != null ? name : "No Name");
+        productPrice.setText("₱" + price);
+        productDescription.setText(description != null ? description : "No Description");
+        productCategory.setText(category != null ? category : "No Category");
+        productQuantity.setText(String.valueOf(currentQuantity));
 
+        // Add Button
+        addBtn.setOnClickListener(v -> {
+            currentQuantity++;
+            productQuantity.setText(String.valueOf(currentQuantity));
+        });
 
-        // Navigation
-        toPrevious.setOnClickListener(v -> finish());
+        // Minus Button
+        minusBtn.setOnClickListener(v -> {
+            if (currentQuantity > 0) {
+                currentQuantity--;
+                productQuantity.setText(String.valueOf(currentQuantity));
+            }
+        });
 
-        proceedToHome.setOnClickListener(view -> finish());
-
-        proceedToRatings.setOnClickListener(view -> startActivity(new Intent(ViewProductDetails.this, PopularProducts.class)));
-
-        proceedToFeatured.setOnClickListener(view -> startActivity(new Intent(ViewProductDetails.this, FeaturedProducts.class)));
-
-        proceedToSkinTypes.setOnClickListener(view -> startActivity(new Intent(ViewProductDetails.this, SkinType.class)));
-
-        proceedToCheckout.setOnClickListener(view -> startActivity(new Intent(ViewProductDetails.this, Checkout.class)));
+        // Confirm Button
+        confirmBtn.setOnClickListener(v -> {
+            if (currentQuantity <= 0) {
+                Toast.makeText(this, "Please select quantity first!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this,
+                        "Added " + currentQuantity + " item(s) to cart!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void hideSystemUI() {

@@ -11,13 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.adapters.PopularAndFeaturedAdapter;
-import com.example.midtermsexam_beauty.models.Product;
+import com.example.midtermsexam_beauty.models.OldProduct;
 
 import java.util.ArrayList;
 
 public class PopularProducts extends AppCompatActivity {
 
-    private final ArrayList<Product> popularProducts = new ArrayList<>();
+    private final ArrayList<OldProduct> popularProducts = new ArrayList<>();
 
     ImageButton toPrevious, proceedToFeatured, proceedToHome,
               proceedToSkinTypes, proceedToCheckout;
@@ -33,7 +33,7 @@ public class PopularProducts extends AppCompatActivity {
 
         ListView popularListView = findViewById(R.id.popular_recycler);
 
-        popularProducts.addAll(Product.getPopularProducts(this));
+        popularProducts.addAll(OldProduct.getPopularProducts(this));
         PopularAndFeaturedAdapter popularAdapter = new PopularAndFeaturedAdapter(this, popularProducts);
         popularListView.setAdapter(popularAdapter);
 

@@ -11,13 +11,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.adapters.CheckOutCard;
-import com.example.midtermsexam_beauty.models.Product;
+import com.example.midtermsexam_beauty.models.OldProduct;
 import com.example.midtermsexam_beauty.utilities.ProductManager;
 
 import java.util.List;
 
 public class Checkout extends AppCompatActivity {
-    private List<Product> productList;
+    private List<OldProduct> productList;
     private TextView totalPriceText;
 
     ImageButton toPrevious, proceedToRatings, proceedToHome,
@@ -40,7 +40,7 @@ public class Checkout extends AppCompatActivity {
         ListView cartListView = findViewById(R.id.cart_list);
         totalPriceText = findViewById(R.id.total_price); // Get Total Price TextView
 
-        productList = ProductManager.getInstance().getProduct();
+//        productList = ProductManager.getInstance().getProduct();
 
         CheckOutCard checkOutAdapter = new CheckOutCard(this, productList);
         cartListView.setAdapter(checkOutAdapter);
@@ -88,7 +88,7 @@ public class Checkout extends AppCompatActivity {
     @SuppressLint("DefaultLocale")
     private void updateTotalPrice() {
         double total = 0;
-        for (Product product : productList) {
+        for (OldProduct product : productList) {
             total += product.getPrice() * product.getCounter(); // Multiply price by quantity
         }
         totalPriceText.setText(String.format("₱%.2f", total)); // Format price to 2 decimal places

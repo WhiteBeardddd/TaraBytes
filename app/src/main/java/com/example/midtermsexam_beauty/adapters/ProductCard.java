@@ -56,54 +56,32 @@ public class ProductCard extends RecyclerView.Adapter<ProductCard.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView displayImage;
-        TextView productName, productPrice, productDescription, ratings, counterView;
-        Button addBtn, subtractBtn, addToCartBtn;
+        TextView productName, productPrice, productDescription, productCategory;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            displayImage = itemView.findViewById(R.id.display_image);
+            displayImage = itemView.findViewById(R.id.product_image);
             productName = itemView.findViewById(R.id.product_name);
             productPrice = itemView.findViewById(R.id.product_price);
+            productCategory = itemView.findViewById(R.id.product_category);
             productDescription = itemView.findViewById(R.id.product_description);
-
-            ratings = itemView.findViewById(R.id.ratings);
-            counterView = itemView.findViewById(R.id.counter);
-            addBtn = itemView.findViewById(R.id.add_btn);
-            subtractBtn = itemView.findViewById(R.id.subtract_btn);
-            addToCartBtn = itemView.findViewById(R.id.add_to_cart);
         }
         @SuppressLint({"DefaultLocale", "SetTextI18n"})
         public void bind (Product product, OnItemClickListener listener) {
-            displayImage.setImageResource(product.getImageId());
+
+            if(product == null) return;
+
+            displayImage.setImageResource(product.getImageID());
             productName.setText(product.getName());
+            productCategory.setText(product.getCategory());
             productPrice.setText(String.format("₱%.2f", product.getPrice()));
             productDescription.setText(product.getDescription());
-            ratings.setText("Rating: " + product.getRating());
-            counterView.setText(String.valueOf(product.getCounter()));
 
-
-            addBtn.setOnClickListener(v -> {
-                product.setCounter(product.getCounter() + 1);
-                counterView.setText(String.valueOf(product.getCounter()));
-            });
-
-            subtractBtn.setOnClickListener(v -> {
-                if (product.getCounter() > 0) {
-                    product.setCounter(product.getCounter() - 1);
-                    counterView.setText(String.valueOf(product.getCounter()));
+            itemView.setOnClickListener(v -> {
+                if(listener != null) {
+                    listener.onItemClick(product);
                 }
             });
-
-            addToCartBtn.setOnClickListener(v -> {
-                if (product.getCounter() <= 0){
-                    Toast.makeText(v.getContext(), "Can't buy 0 quantity!", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(v.getContext(), "added to cart!", Toast.LENGTH_SHORT).show();
-                    ProductManager.getInstance().addProduct(product);
-                }
-            });
-
-            itemView.setOnClickListener(v -> listener.onItemClick(product));
 
         }
     }
