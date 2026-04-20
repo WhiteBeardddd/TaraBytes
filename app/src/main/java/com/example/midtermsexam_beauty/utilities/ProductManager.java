@@ -2,16 +2,16 @@ package com.example.midtermsexam_beauty.utilities;
 
 import com.example.midtermsexam_beauty.models.Product;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProductManager {
     private static ProductManager productInstance;
 
-    private final List<Product> productList;
+    private final Map<Product, Integer> productList;
 
     private ProductManager() {
-        productList = new ArrayList<>();
+        productList = new HashMap<>();
     }
 
     public static synchronized ProductManager getInstance() {
@@ -21,23 +21,21 @@ public class ProductManager {
         return productInstance;
     }
 
-    public void addProduct(Product product) {
-        productList.add(product);
+    public void addProduct(Product product, int quantity) {
+        int currentQty = productList.getOrDefault(product, 0);
+        productList.put(product, currentQty + quantity);
     }
 
 
     public void removeProduct(Product product) {
-        int index = productList.indexOf(product);
-        if (index != -1) {
-            productList.remove(index);
-        }
+        productList.remove(product);
     }
 
-    public List<Product> getProduct(){
+    public Map<Product, Integer> getProduct(){
         return productList;
     }
 
-    public void clearProduct() {
+    public void clearProductList() {
         productList.clear();
     }
 }

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.adapters.SkinTypeCard;
-import com.example.midtermsexam_beauty.models.Product;
+import com.example.midtermsexam_beauty.models.OldProduct;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class SkinType extends AppCompatActivity {
 
-    private final ArrayList<Product> skinTypeList = new ArrayList<>();
+    private final ArrayList<OldProduct> skinTypeList = new ArrayList<>();
     private SkinTypeCard SkinTypeAdapter;
 
     @Override
@@ -53,8 +53,8 @@ public class SkinType extends AppCompatActivity {
         skinTypeSpinner.setAdapter(adapter);
 
         // Load products
-        skinTypeList.addAll(Product.getPopularProducts(this));
-        skinTypeList.addAll(Product.getDefaultProducts(this));
+        skinTypeList.addAll(OldProduct.getPopularProducts(this));
+        skinTypeList.addAll(OldProduct.getDefaultProducts(this));
 
         // Set up RecyclerView Adapter
         SkinTypeAdapter = new SkinTypeCard(this, new ArrayList<>(skinTypeList));
@@ -96,20 +96,20 @@ public class SkinType extends AppCompatActivity {
     }
 
     private void filterProductsBySkinType(String selectedSkinType) {
-        List<Product> filteredList = new ArrayList<>();
-        List<Product> allProducts = new ArrayList<>();
-        allProducts.addAll(Product.getPopularProducts(this));
-        allProducts.addAll(Product.getDefaultProducts(this));
+        List<OldProduct> filteredList = new ArrayList<>();
+        List<OldProduct> allProducts = new ArrayList<>();
+        allProducts.addAll(OldProduct.getPopularProducts(this));
+        allProducts.addAll(OldProduct.getDefaultProducts(this));
 
         String selectedType = selectedSkinType.toLowerCase();
 
         if (selectedType.equals("ratings")) {
             // Sort products by rating from highest to lowest
-            allProducts.sort(Comparator.comparingDouble(Product::getRating).reversed());
+            allProducts.sort(Comparator.comparingDouble(OldProduct::getRating).reversed());
             filteredList.addAll(allProducts);
         } else {
             // Filter by skin type && Category
-            for (Product product : allProducts) {
+            for (OldProduct product : allProducts) {
                 if (selectedType.equals("all") || product.getSkin_type().toLowerCase().contains(selectedType)) {
                     filteredList.add(product);
                 } else if (product.getCategory().toLowerCase().contains(selectedType)) {
