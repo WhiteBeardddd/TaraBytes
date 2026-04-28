@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.adapters.CheckOutCard;
 import com.example.midtermsexam_beauty.models.Product;
-import com.example.midtermsexam_beauty.adapters.NavbarHelper;
+import com.example.midtermsexam_beauty.adapters.NavbarCard;
 import com.example.midtermsexam_beauty.utilities.ProductManager;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class Checkout extends AppCompatActivity {
         hideSystemUI();
 
         // Initialize Navbar
-        NavbarHelper.setupNavbar(this);
+        NavbarCard.setupNavbar(this);
 
         toPrevious = findViewById(R.id.back_btn);
 

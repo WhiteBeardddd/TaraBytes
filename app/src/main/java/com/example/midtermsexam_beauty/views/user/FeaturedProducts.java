@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.adapters.PopularAndFeaturedAdapter;
 import com.example.midtermsexam_beauty.models.Product;
-import com.example.midtermsexam_beauty.adapters.NavbarHelper;
+import com.example.midtermsexam_beauty.adapters.NavbarCard;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class FeaturedProducts extends AppCompatActivity {
         hideSystemUI();
 
         // Initialize Navbar
-        NavbarHelper.setupNavbar(this);
+        NavbarCard.setupNavbar(this);
 
         toPrevious = findViewById(R.id.back_btn);
 
