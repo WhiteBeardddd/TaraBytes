@@ -25,8 +25,8 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="55dp"
+                android:layout_height="49dp"
                 android:layout_gravity="start|center_vertical"
                 android:src="@drawable/tarabytes"
                 tools:ignore="ContentDescription" />
@@ -48,16 +48,16 @@
 
             <ImageButton
                 android:id="@+id/toProfile"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:padding="10dp"
-                android:layout_marginLeft="7dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="25dp"
                 android:background="@drawable/rounded_profile_bg_green"
-                android:contentDescription="Profile Icon"
-                android:src="@drawable/ic_profile"
                 android:clickable="true"
-                android:focusable="true" />
+                android:contentDescription="Profile Icon"
+                android:focusable="true"
+                android:padding="10dp"
+                android:src="@drawable/ic_profile" />
         </LinearLayout>
 
         <!-- Scrollable Content -->
