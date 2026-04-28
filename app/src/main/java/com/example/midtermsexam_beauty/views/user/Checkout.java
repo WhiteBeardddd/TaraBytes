@@ -46,7 +46,7 @@ public class Checkout extends AppCompatActivity {
         updateTotalPrice();
 
         // Navigation Buttons
-        toPrevious.setOnClickListener(view -> startActivity(new Intent(Checkout.this, Homepage.class)));
+        toPrevious.setOnClickListener(view -> finish());
     }
 
     private void hideSystemUI() {

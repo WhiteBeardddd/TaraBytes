@@ -41,8 +41,24 @@ public class FeaturedProducts extends AppCompatActivity {
 
         PopularAndFeaturedAdapter adapter = new PopularAndFeaturedAdapter(this, featuredProducts);
         featuredListView.setAdapter(adapter);
+        featuredListView.setOnItemClickListener((parent, view, position, id) -> {
+            Product product = featuredProducts.get(position);
+            openProductDetails(product);
+        });
 
-        toPrevious.setOnClickListener(view -> startActivity(new Intent(FeaturedProducts.this, Homepage.class)));
+        toPrevious.setOnClickListener(view -> finish());
+    }
+
+    private void openProductDetails(Product product) {
+        Intent intent = new Intent(this, ViewProductDetails.class);
+        intent.putExtra("imageId", product.getImageId());
+        intent.putExtra("name", product.getName());
+        intent.putExtra("price", product.getPrice());
+        intent.putExtra("description", product.getDescription());
+        intent.putExtra("rating", product.getRating());
+        intent.putExtra("category", product.getCategory());
+        intent.putExtra("skin_type", product.getSkin_type());
+        startActivity(intent);
     }
 
     private void hideSystemUI() {

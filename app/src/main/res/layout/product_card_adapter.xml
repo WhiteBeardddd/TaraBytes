@@ -2,171 +2,161 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="160dp"
+    android:layout_width="220dp"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:background="@drawable/border_black">
+    android:layout_marginEnd="12dp"
+    android:layout_marginBottom="6dp"
+    app:cardBackgroundColor="@color/surface_elevated"
+    app:cardCornerRadius="22dp"
+    app:cardElevation="0dp">
 
     <LinearLayout
         android:id="@+id/toViewItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradient_bg_005"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="14dp">
 
-        <!-- Product Image -->
+        <ImageView
+            android:id="@+id/display_image"
+            android:layout_width="match_parent"
+            android:layout_height="132dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/surface_card_soft"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/product_1"
+            tools:ignore="ContentDescription" />
+
         <TextView
             android:id="@+id/product_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:ellipsize="end"
-            android:fontFamily="@font/lexend_medium"
-            android:gravity="center"
+            android:fontFamily="@font/lexend_bold"
             android:maxLines="2"
-            android:text="Buy Myra Ultimate Softgel Capsule"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText,SmallSp" />
-
-
-        <!-- Product Name -->
-        <ImageView
-            android:id="@+id/display_image"
-            android:layout_width="match_parent"
-            android:layout_height="102dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/border_black"
-            android:padding="3dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/product_1"
-            tools:ignore="ContentDescription,RtlHardcoded" />
-
-
-        <!-- Price -->
-        <TextView
-            android:id="@+id/product_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lexend_medium"
-            android:paddingTop="4dp"
-            android:text="₱208.00"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:text="Chicken Adobo Rice Bowl"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
             tools:ignore="HardcodedText" />
-
-
-        <!-- Subtext -->
 
         <TextView
             android:id="@+id/product_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
             android:ellipsize="end"
-            android:fontFamily="@font/lexend_medium"
+            android:fontFamily="@font/lexend_regular"
             android:maxLines="2"
-            android:paddingTop="4dp"
-            android:text="product description"
-            android:textColor="@color/black"
+            android:text="Savory chicken simmered in soy sauce, garlic, and vinegar."
+            android:textColor="@color/text_secondary"
             android:textSize="12sp"
             tools:ignore="HardcodedText" />
 
-        <TextView
-            android:id="@+id/ratings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="@font/lexend_medium"
-            android:maxLines="2"
-            android:paddingTop="5dp"
-            android:text="Rating: "
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            tools:ignore="HardcodedText" />
-
-        <!-- Shopee and Rating Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingTop="4dp"
-            tools:ignore="UselessLeaf">
-
-
-        </LinearLayout>
-
-        <!-- Rating -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="49dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingTop="4dp">
-
-            <Button
-                android:id="@+id/add_btn"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:backgroundTint="#66AF49"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:padding="8dp"
-                android:text="+"
-                android:textColor="@color/white"
-                tools:ignore="HardcodedText,KeyboardInaccessibleWidget" />
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/counter"
+                android:id="@+id/product_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/lexend_black"
+                android:text="P208.00"
+                android:textColor="@color/color_primary"
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/ratings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:backgroundTint="#FF9800"
-                android:elevation="4dp"
-                android:fontFamily="@font/lexend_bold"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="0"
-                android:textColor="@color/black"
-                tools:ignore="HardcodedText,KeyboardInaccessibleWidget" />
-
-
-            <Button
-                android:id="@+id/subtract_btn"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
-                android:backgroundTint="#E05151"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:gravity="center"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:padding="8dp"
-                android:text="-"
-                android:textColor="@color/white"
-                tools:ignore="HardcodedText,KeyboardInaccessibleWidget" />
+                android:background="@drawable/pill_green"
+                android:fontFamily="@font/lexend_semibold"
+                android:paddingStart="10dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="6dp"
+                android:text="4.8"
+                android:textColor="@color/text_primary"
+                android:textSize="11sp"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/add_to_cart"
-            android:layout_width="143dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
-            android:backgroundTint="#FF9800"
-            android:clickable="true"
-            android:elevation="4dp"
-            android:focusable="true"
-            android:focusableInTouchMode="false"
-            android:padding="8dp"
-            android:text="Add to cart"
-            android:textColor="@color/white"
-            tools:ignore="HardcodedText" />
+            android:layout_marginTop="14dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/surface_card_soft"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp">
+
+                <Button
+                    android:id="@+id/subtract_btn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/cta_secondary"
+                    android:elevation="0dp"
+                    android:padding="0dp"
+                    android:text="-"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText,KeyboardInaccessibleWidget" />
+
+                <TextView
+                    android:id="@+id/counter"
+                    android:layout_width="34dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lexend_bold"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    tools:ignore="HardcodedText" />
+
+                <Button
+                    android:id="@+id/add_btn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/cta_secondary"
+                    android:elevation="0dp"
+                    android:padding="0dp"
+                    android:text="+"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText,KeyboardInaccessibleWidget" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/add_to_cart"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/cta_primary"
+                android:elevation="0dp"
+                android:fontFamily="@font/lexend_semibold"
+                android:text="Add to cart"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

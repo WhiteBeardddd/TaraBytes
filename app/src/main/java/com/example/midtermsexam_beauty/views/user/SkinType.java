@@ -78,7 +78,7 @@ public class SkinType extends AppCompatActivity {
         });
 
         // Navigation Buttons
-        toPrevious.setOnClickListener(view -> startActivity(new Intent(SkinType.this, Homepage.class)));
+        toPrevious.setOnClickListener(view -> finish());
     }
 
     private void hideSystemUI() {

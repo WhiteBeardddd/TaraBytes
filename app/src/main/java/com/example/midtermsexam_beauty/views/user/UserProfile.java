@@ -2,12 +2,14 @@ package com.example.midtermsexam_beauty.views.user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.models.Profile;
+import com.example.midtermsexam_beauty.utilities.AppNavigator;
 import com.example.midtermsexam_beauty.utilities.SessionManager;
 import com.example.midtermsexam_beauty.utilities.SupabaseAuthService;
 import com.example.midtermsexam_beauty.views.seller.SellerDashboard;
@@ -19,7 +21,8 @@ public class UserProfile extends AppCompatActivity {
 
     private EditText etFullName, etPhone;
     private SwitchMaterial switchIsSeller;
-    private Button btnSave;
+    private ImageButton btnBack;
+    private Button btnSave, btnLogout;
     private SessionManager session;
     private SupabaseAuthService authService;
     private ExecutorService executor;
@@ -36,11 +39,15 @@ public class UserProfile extends AppCompatActivity {
         etFullName = findViewById(R.id.etFullName);
         etPhone = findViewById(R.id.etPhone);
         switchIsSeller = findViewById(R.id.switchIsSeller);
+        btnBack = findViewById(R.id.back_btn);
         btnSave = findViewById(R.id.btnSaveProfile);
+        btnLogout = findViewById(R.id.btnLogout);
 
         loadProfile();
 
+        btnBack.setOnClickListener(v -> finish());
         btnSave.setOnClickListener(v -> saveProfile());
+        btnLogout.setOnClickListener(v -> AppNavigator.logout(this, session));
     }
 
     private void loadProfile() {

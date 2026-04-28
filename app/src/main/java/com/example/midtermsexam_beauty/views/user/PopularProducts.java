@@ -38,12 +38,28 @@ public class PopularProducts extends AppCompatActivity {
         popularProducts.addAll(Product.getPopularProducts(this));
         PopularAndFeaturedAdapter popularAdapter = new PopularAndFeaturedAdapter(this, popularProducts);
         popularListView.setAdapter(popularAdapter);
+        popularListView.setOnItemClickListener((parent, view, position, id) -> {
+            Product product = popularProducts.get(position);
+            openProductDetails(product);
+        });
 
 
         toPrevious = findViewById(R.id.back_btn);
 
         // Navigation Buttons
-        toPrevious.setOnClickListener(view -> startActivity(new Intent(PopularProducts.this, Homepage.class)));
+        toPrevious.setOnClickListener(view -> finish());
+    }
+
+    private void openProductDetails(Product product) {
+        Intent intent = new Intent(this, ViewProductDetails.class);
+        intent.putExtra("imageId", product.getImageId());
+        intent.putExtra("name", product.getName());
+        intent.putExtra("price", product.getPrice());
+        intent.putExtra("description", product.getDescription());
+        intent.putExtra("rating", product.getRating());
+        intent.putExtra("category", product.getCategory());
+        intent.putExtra("skin_type", product.getSkin_type());
+        startActivity(intent);
     }
 
     private void hideSystemUI() {

@@ -12,13 +12,15 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.midtermsexam_beauty.R;
+import com.example.midtermsexam_beauty.adapters.NavbarHelper;
+
+import java.util.Locale;
 
 public class ViewProductDetails extends AppCompatActivity {
     ImageView productImage;
     TextView productName, productPrice, productDescription,
-    productRating, productCategory, productSkinType;
-    ImageButton toPrevious, proceedToFeatured, proceedToHome,
-            proceedToRatings, proceedToSkinTypes, proceedToCheckout;
+            productRating, productCategory, productSkinType;
+    ImageButton toPrevious;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -35,48 +37,28 @@ public class ViewProductDetails extends AppCompatActivity {
         productRating = findViewById(R.id.productRating);
         productCategory = findViewById(R.id.productCategory);
         productSkinType = findViewById(R.id.productSkinType);
-
-
-        //Navigation//
         toPrevious = findViewById(R.id.back_btn);
-        proceedToFeatured = findViewById(R.id.toFeatured);
-        proceedToHome = findViewById(R.id.toHome);
-        proceedToRatings = findViewById(R.id.toRatings);
-        proceedToSkinTypes = findViewById(R.id.toSkinTypes);
-        proceedToCheckout = findViewById(R.id.toPayment);
 
-        // Get product details from intent
+        NavbarHelper.setupNavbar(this);
+
         Intent intent = getIntent();
-            int imageId = intent.getIntExtra("imageId", 0);
-            String name = intent.getStringExtra("name");
-            float price = intent.getFloatExtra("price", 0.0f);
-            String description = intent.getStringExtra("description");
-            float rating = intent.getFloatExtra("rating", 0.0f);
-            String category = intent.getStringExtra("category");
-            String skin_type = intent.getStringExtra("skin_type");
+        int imageId = intent.getIntExtra("imageId", 0);
+        String name = intent.getStringExtra("name");
+        float price = intent.getFloatExtra("price", 0.0f);
+        String description = intent.getStringExtra("description");
+        float rating = intent.getFloatExtra("rating", 0.0f);
+        String category = intent.getStringExtra("category");
+        String skinType = intent.getStringExtra("skin_type");
 
-            // SET VALUES
-            productImage.setImageResource(imageId);
-            productName.setText(name);
-            productPrice.setText("₱" + price);
-            productDescription.setText(description);
-            productRating.setText("Rating: " + rating);
-            productCategory.setText("Category: " + category);
-            productSkinType.setText("Skin Type: " + skin_type);
+        productImage.setImageResource(imageId);
+        productName.setText(name);
+        productPrice.setText(String.format(Locale.US, "P%.2f", price));
+        productDescription.setText(description);
+        productRating.setText(String.format(Locale.US, "Rating: %.1f", rating));
+        productCategory.setText(category);
+        productSkinType.setText(skinType);
 
-
-        // Navigation
         toPrevious.setOnClickListener(v -> finish());
-
-        proceedToHome.setOnClickListener(view -> finish());
-
-        proceedToRatings.setOnClickListener(view -> startActivity(new Intent(ViewProductDetails.this, PopularProducts.class)));
-
-        proceedToFeatured.setOnClickListener(view -> startActivity(new Intent(ViewProductDetails.this, FeaturedProducts.class)));
-
-        proceedToSkinTypes.setOnClickListener(view -> startActivity(new Intent(ViewProductDetails.this, SkinType.class)));
-
-        proceedToCheckout.setOnClickListener(view -> startActivity(new Intent(ViewProductDetails.this, Checkout.class)));
     }
 
     private void hideSystemUI() {
