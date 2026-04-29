@@ -21,6 +21,8 @@ public class Product {
     private final float price;
     private final String category;
     private final boolean availability;
+    int count = 0;
+    float rating = 0;
 
     public Product(int imageID, String name, String description, float price, String category, boolean availability) {
         this.imageID = imageID;
@@ -84,6 +86,26 @@ public class Product {
 
     public static List<Product> getMeals(Context context, String fromWhere) {
         return loadMealsFromJSON(context, "meals.json", fromWhere);
+    }
+
+    public int getCounter() {
+        return this.count;
+    }
+
+    public void setCounter(int counter) {
+        this.count = counter;
+    }
+
+    public int getImageId() {
+        return imageID;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 }
 

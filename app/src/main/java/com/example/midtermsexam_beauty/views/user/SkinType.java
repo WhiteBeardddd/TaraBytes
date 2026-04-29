@@ -26,7 +26,7 @@ import java.util.List;
 
 public class SkinType extends AppCompatActivity {
 
-    private final ArrayList<OldProduct> skinTypeList = new ArrayList<>();
+//    private final ArrayList<OldProduct> skinTypeList = new ArrayList<>();
     private SkinTypeCard SkinTypeAdapter;
 
     @Override
@@ -54,11 +54,11 @@ public class SkinType extends AppCompatActivity {
         skinTypeSpinner.setAdapter(adapter);
 
         // Load products
-        skinTypeList.addAll(OldProduct.getPopularProducts(this));
-        skinTypeList.addAll(OldProduct.getDefaultProducts(this));
+//        skinTypeList.addAll(OldProduct.getPopularProducts(this));
+//        skinTypeList.addAll(OldProduct.getDefaultProducts(this));
 
         // Set up RecyclerView Adapter
-        SkinTypeAdapter = new SkinTypeCard(this, new ArrayList<>(skinTypeList));
+//        SkinTypeAdapter = new SkinTypeCard(this, new ArrayList<>(skinTypeList));
 
         // Set Grid Layout (2 columns)
         skinTypeListView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -97,29 +97,29 @@ public class SkinType extends AppCompatActivity {
     }
 
     private void filterProductsBySkinType(String selectedSkinType) {
-        List<OldProduct> filteredList = new ArrayList<>();
-        List<OldProduct> allProducts = new ArrayList<>();
-        allProducts.addAll(OldProduct.getPopularProducts(this));
-        allProducts.addAll(OldProduct.getDefaultProducts(this));
+//        List<OldProduct> filteredList = new ArrayList<>();
+//        List<OldProduct> allProducts = new ArrayList<>();
+//        allProducts.addAll(OldProduct.getPopularProducts(this));
+//        allProducts.addAll(OldProduct.getDefaultProducts(this));
 
         String selectedType = selectedSkinType.toLowerCase();
 
-        if (selectedType.equals("ranked")) {
-            // Sort products by rating from highest to lowest
-            allProducts.sort(Comparator.comparingDouble(OldProduct::getRating).reversed());
-            filteredList.addAll(allProducts);
-        } else {
-            // Filter by skin type && Category
-            for (OldProduct product : allProducts) {
-                if (selectedType.equals("all") || product.getSkin_type().toLowerCase().contains(selectedType)) {
-                    filteredList.add(product);
-                } else if (product.getCategory().toLowerCase().contains(selectedType)) {
-                    filteredList.add(product);
-                }
-            }
-        }
-
-        // Update RecyclerView with filtered data
-        SkinTypeAdapter.updateList(filteredList);
+//        if (selectedType.equals("ranked")) {
+//            // Sort products by rating from highest to lowest
+//            allProducts.sort(Comparator.comparingDouble(OldProduct::getRating).reversed());
+//            filteredList.addAll(allProducts);
+//        } else {
+//            // Filter by skin type && Category
+//            for (OldProduct product : allProducts) {
+//                if (selectedType.equals("all") || product.getSkin_type().toLowerCase().contains(selectedType)) {
+//                    filteredList.add(product);
+//                } else if (product.getCategory().toLowerCase().contains(selectedType)) {
+//                    filteredList.add(product);
+//                }
+//            }
+//        }
+//
+//        // Update RecyclerView with filtered data
+//        SkinTypeAdapter.updateList(filteredList);
     }
 }
