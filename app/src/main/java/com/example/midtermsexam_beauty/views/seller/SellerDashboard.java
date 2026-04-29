@@ -3,7 +3,6 @@ package com.example.midtermsexam_beauty.views.seller;
 import android.os.Bundle;
 import android.widget.Button;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.midtermsexam_beauty.R;
@@ -17,7 +16,6 @@ public class SellerDashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_seller_dashboard);
 
         sessionManager = new SessionManager(this);

@@ -3,13 +3,15 @@ package com.example.midtermsexam_beauty.views.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.adapters.NavbarCard;
 import com.example.midtermsexam_beauty.models.Profile;
@@ -18,6 +20,7 @@ import com.example.midtermsexam_beauty.utilities.SessionManager;
 import com.example.midtermsexam_beauty.utilities.SupabaseAuthService;
 import com.example.midtermsexam_beauty.views.seller.SellerDashboard;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -40,6 +43,8 @@ public class UserProfile extends AppCompatActivity {
         authService = new SupabaseAuthService();
         executor = Executors.newSingleThreadExecutor();
 
+        NavbarCard.setupNavbar(this);
+
         etFullName = findViewById(R.id.etFullName);
         etPhone = findViewById(R.id.etPhone);
         switchIsSeller = findViewById(R.id.switchIsSeller);
@@ -51,7 +56,6 @@ public class UserProfile extends AppCompatActivity {
         btnLogout = findViewById(R.id.btnLogout);
 
         loadProfile();
-        NavbarCard.setupNavbar(this);
 
         settingBtn.setOnClickListener(v ->
                 Toast.makeText(this, "Going to settings", Toast.LENGTH_SHORT).show()
@@ -70,7 +74,6 @@ public class UserProfile extends AppCompatActivity {
         );
 
         btnSave.setOnClickListener(v -> saveProfile());
-
         btnLogout.setOnClickListener(v -> AppNavigator.logout(this, session));
 
         setupDropdown(R.id.headerSupport, R.id.contentSupport, R.id.arrowSupport);
@@ -98,6 +101,18 @@ public class UserProfile extends AppCompatActivity {
         String phone = etPhone.getText().toString().trim();
         boolean isSeller = switchIsSeller.isChecked();
 
+        if (session.getToken() == null || session.getUserId() == null) {
+            Toast.makeText(this, "Session expired. Please log in again.", Toast.LENGTH_SHORT).show();
+            AppNavigator.logout(this, session);
+            return;
+        }
+
+        if (fullName.isEmpty()) {
+            etFullName.setError("Name is required");
+            etFullName.requestFocus();
+            return;
+        }
+
         btnSave.setEnabled(false);
         executor.execute(() -> {
             boolean success = authService.updateProfile(
@@ -108,11 +123,10 @@ public class UserProfile extends AppCompatActivity {
                     isSeller
             );
 
-            session.setIsSeller(isSeller);
-
             runOnUiThread(() -> {
                 btnSave.setEnabled(true);
                 if (success) {
+                    session.setIsSeller(isSeller);
                     Toast.makeText(this, "Profile updated!", Toast.LENGTH_SHORT).show();
                     if (isSeller) {
                         startActivity(new Intent(this, SellerDashboard.class));

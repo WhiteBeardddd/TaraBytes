@@ -5,63 +5,31 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_dark_bg"
     tools:context=".views.user.PopularProducts">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#1C1C1C">
+        android:background="@color/color_dark_bg"
+        android:orientation="vertical">
 
-        <!-- Header -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:background="#212121"
-            android:elevation="8dp"
-            android:orientation="horizontal"
-            android:padding="10dp">
+        <include layout="@layout/layout_top_brand_header" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="71dp"
-                android:layout_height="74dp"
-                android:layout_gravity="start|center_vertical"
-                android:src="@drawable/tarabytes"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/lexend_black"
-                android:gravity="center_vertical"
-                android:letterSpacing="0.3"
-                android:text="TaraBytes"
-                android:textColor="#FFFFFF"
-                android:textSize="27sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText" />
-
-        </LinearLayout>
-
-        <!-- Content Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingTop="8dp"
-            android:paddingHorizontal="12dp">
+            android:paddingHorizontal="12dp"
+            android:paddingTop="8dp">
 
-            <!-- Back + Title Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginBottom="12dp"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
+                android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/back_btn"
@@ -74,26 +42,25 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="40dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/lexend_semibold"
                     android:gravity="center"
+                    android:letterSpacing="0.1"
                     android:text="Popular Products"
                     android:textColor="#FFFFFF"
-                    android:letterSpacing="0.1"
-                    android:fontFamily="@font/lexend_semibold"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_marginEnd="40dp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
 
-            <!-- Accent divider -->
             <View
                 android:layout_width="60dp"
                 android:layout_height="3dp"
                 android:layout_gravity="center_horizontal"
-                android:background="#FF5722"
+                android:layout_marginTop="-8dp"
                 android:layout_marginBottom="12dp"
-                android:layout_marginTop="-8dp"/>
+                android:background="#FF5722" />
 
             <ListView
                 android:id="@+id/popular_recycler"
@@ -101,14 +68,13 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="#00000000"
+                android:clickable="true"
                 android:divider="#2A2A2A"
                 android:dividerHeight="8dp"
-                android:clickable="true"
                 tools:ignore="KeyboardInaccessibleWidget" />
 
         </LinearLayout>
 
-        <!-- Bottom Navigation Bar -->
         <include
             android:id="@+id/navigation_bar"
             layout="@layout/layout_navbar" />

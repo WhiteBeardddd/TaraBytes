@@ -9,16 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.midtermsexam_beauty.R;
-import com.example.midtermsexam_beauty.models.OldProduct;
+import com.example.midtermsexam_beauty.models.Product;
 
 import java.util.List;
 import java.util.Locale;
 
 public class PopularAndFeaturedAdapter extends BaseAdapter {
     private final Context context;
-    private final List<OldProduct> productList;
+    private final List<Product> productList;
 
-    public PopularAndFeaturedAdapter(Context context, List<OldProduct> productList) {
+    public PopularAndFeaturedAdapter(Context context, List<Product> productList) {
         this.context = context;
         this.productList = productList;
     }
@@ -49,14 +49,14 @@ public class PopularAndFeaturedAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        OldProduct product = productList.get(position);
-        holder.productImage.setImageResource(product.getImageId());
+        Product product = productList.get(position);
+        holder.productImage.setImageResource(product.getImageID());
         holder.productName.setText(product.getName());
         holder.productPrice.setText(String.format(Locale.US, "P%.2f", product.getPrice()));
         holder.productDescription.setText(product.getDescription());
         holder.productRating.setText(String.format(Locale.US, "%.1f", product.getRating()));
         holder.productCategory.setText("Category: " + product.getCategory());
-        holder.productSkinType.setText("Best for: " + product.getSkin_type());
+        holder.productSkinType.setText(product.getAvalability() ? "Available now" : "Unavailable");
 
         return convertView;
     }
