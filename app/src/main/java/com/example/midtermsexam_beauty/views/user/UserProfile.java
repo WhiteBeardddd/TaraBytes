@@ -40,6 +40,8 @@ public class UserProfile extends AppCompatActivity {
         authService = new SupabaseAuthService();
         executor = Executors.newSingleThreadExecutor();
 
+        NavbarCard.setupNavbar(this);
+
         etFullName = findViewById(R.id.etFullName);
         etPhone = findViewById(R.id.etPhone);
         switchIsSeller = findViewById(R.id.switchIsSeller);

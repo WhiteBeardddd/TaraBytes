@@ -4,77 +4,155 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_bar"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="wrap_content"
+    android:minHeight="76dp"
     android:background="@color/surface_elevated"
     android:gravity="center"
     android:orientation="horizontal"
-    android:paddingHorizontal="12dp"
-    android:paddingVertical="8dp"
-    android:weightSum="5">
+    android:paddingStart="10dp"
+    android:paddingTop="6dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="8dp"
+    android:weightSum="4">
 
-    <ImageButton
-        android:id="@+id/nav_home"
+    <LinearLayout
+        android:id="@+id/nav_food_tab"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_margin="4dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/surface_card_soft"
-        android:elevation="0dp"
-        android:padding="12dp"
-        android:src="@drawable/home_icon"
-        app:tint="@color/text_secondary"
-        tools:ignore="ContentDescription" />
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="4dp">
 
-    <ImageButton
-        android:id="@+id/nav_ratings"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_margin="4dp"
-        android:background="@drawable/surface_card_soft"
-        android:elevation="0dp"
-        android:padding="12dp"
-        android:src="@drawable/popular_icon"
-        app:tint="@color/text_secondary"
-        tools:ignore="ContentDescription" />
+        <ImageButton
+            android:id="@+id/nav_food"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:focusable="false"
+            android:padding="6dp"
+            android:src="@drawable/home_icon"
+            app:tint="@color/text_secondary"
+            tools:ignore="ContentDescription" />
 
-    <ImageButton
-        android:id="@+id/nav_skin_types"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_margin="4dp"
-        android:background="@drawable/surface_card_soft"
-        android:elevation="0dp"
-        android:padding="12dp"
-        android:src="@drawable/skin_type_icon"
-        app:tint="@color/text_secondary"
-        tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/nav_food_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/lexend_medium"
+            android:text="Food"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/nav_featured"
+    <LinearLayout
+        android:id="@+id/nav_search_tab"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_margin="4dp"
-        android:background="@drawable/surface_card_soft"
-        android:elevation="0dp"
-        android:padding="12dp"
-        android:src="@drawable/featured_icon"
-        app:tint="@color/text_secondary"
-        tools:ignore="ContentDescription" />
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="4dp">
 
-    <ImageButton
-        android:id="@+id/nav_payment"
+        <ImageButton
+            android:id="@+id/nav_search"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:focusable="false"
+            android:padding="6dp"
+            android:src="@android:drawable/ic_menu_search"
+            app:tint="@color/text_secondary"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/nav_search_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/lexend_medium"
+            android:text="Search"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_cart_tab"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_margin="4dp"
-        android:background="@drawable/surface_card_soft"
-        android:elevation="0dp"
-        android:padding="12dp"
-        android:src="@drawable/check_out_icon"
-        app:tint="@color/text_secondary"
-        tools:ignore="ContentDescription" />
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+        <ImageButton
+            android:id="@+id/nav_cart"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:focusable="false"
+            android:padding="6dp"
+            android:src="@drawable/check_out_icon"
+            app:tint="@color/text_secondary"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/nav_cart_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/lexend_medium"
+            android:text="Carts"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_account_tab"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+        <ImageButton
+            android:id="@+id/nav_account"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:focusable="false"
+            android:padding="6dp"
+            android:src="@drawable/ic_profile"
+            app:tint="@color/text_secondary"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/nav_account_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/lexend_medium"
+            android:text="Account"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
 
 </LinearLayout>

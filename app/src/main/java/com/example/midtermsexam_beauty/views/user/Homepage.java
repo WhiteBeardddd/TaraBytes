@@ -1,47 +1,49 @@
 package com.example.midtermsexam_beauty.views.user;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
+import android.util.TypedValue;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.midtermsexam_beauty.R;
-import com.example.midtermsexam_beauty.adapters.ProductCard;
-import com.example.midtermsexam_beauty.models.Product;
 import com.example.midtermsexam_beauty.adapters.NavbarCard;
+import com.example.midtermsexam_beauty.adapters.ProductCard;
+import com.example.midtermsexam_beauty.adapters.RestaurantFeedAdapter;
+import com.example.midtermsexam_beauty.models.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Homepage extends AppCompatActivity {
 
-//    private final ArrayList<OldProduct> popularProducts = new ArrayList<>();
-//    private final ArrayList<OldProduct> featuredProducts = new ArrayList<>();
-    ImageButton proceedToProfile;
+    private RecyclerView popularListView;
+    private LinearLayout explorePaginationIndicator;
+    private PagerSnapHelper exploreSnapHelper;
+    private LinearLayoutManager exploreLayoutManager;
+    private final List<ImageView> exploreDots = new ArrayList<>();
 
-
-    @SuppressLint("SuspiciousIndentation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_homepage);
-        hideSystemUI();
 
         RecyclerView featuredListView = findViewById(R.id.featured_recycler);
-        RecyclerView popularListView = findViewById(R.id.popular_recycler);
-
-        proceedToProfile = findViewById(R.id.toProfile);
+        popularListView = findViewById(R.id.popular_recycler);
+        explorePaginationIndicator = findViewById(R.id.explore_pagination_indicator);
+        EditText searchEditText = findViewById(R.id.searchEditText);
 
         NavbarCard.setupNavbar(this);
 
-        List<Product> featuredProducts = Product.getMeals(this, "bestSellers");
+        List<Product> featuredProducts = getStaticFeaturedShops();
         List<Product> popularProducts = Product.getMeals(this, "popular");
 
         ProductCard.OnItemClickListener listener = product -> {
@@ -52,39 +54,149 @@ public class Homepage extends AppCompatActivity {
             intent.putExtra("name", product.getName());
             intent.putExtra("price", product.getPrice());
             intent.putExtra("description", product.getDescription());
+            intent.putExtra("rating", product.getRating());
             intent.putExtra("category", product.getCategory());
+            intent.putExtra("skin_type", product.getSkin_type());
             intent.putExtra("availability", product.getAvalability());
             startActivity(intent);
         };
 
-        // Adapters
         ProductCard featuredAdapter = new ProductCard(this, featuredProducts, listener);
-        ProductCard popularAdapter = new ProductCard(this, popularProducts, listener);
+        RestaurantFeedAdapter popularAdapter = new RestaurantFeedAdapter(this, popularProducts, listener);
 
-        // Layouts
         featuredListView.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         );
-
-        popularListView.setLayoutManager(
-                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        );
+        exploreLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        popularListView.setLayoutManager(exploreLayoutManager);
 
         featuredListView.setAdapter(featuredAdapter);
         popularListView.setAdapter(popularAdapter);
 
-        proceedToProfile.setOnClickListener(view -> {
-            startActivity(new Intent(Homepage.this, UserProfile.class));
+        setupExplorePagination(popularProducts.size());
+
+        searchEditText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                startActivity(new Intent(this, PopularProducts.class));
+                v.clearFocus();
+            }
         });
     }
-    private void hideSystemUI() {
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+
+    private void setupExplorePagination(int itemCount) {
+        if (exploreSnapHelper == null) {
+            exploreSnapHelper = new PagerSnapHelper();
+            exploreSnapHelper.attachToRecyclerView(popularListView);
+        }
+
+        buildExploreDots(itemCount);
+        updateExploreDots(0);
+
+        popularListView.clearOnScrollListeners();
+        popularListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                updateExploreIndicatorFromSnap();
+            }
+        });
+
+        popularListView.post(this::updateExploreIndicatorFromSnap);
+    }
+
+    private void buildExploreDots(int itemCount) {
+        exploreDots.clear();
+        explorePaginationIndicator.removeAllViews();
+
+        for (int i = 0; i < itemCount; i++) {
+            ImageView dot = new ImageView(this);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dpToPx(8), dpToPx(8));
+            if (i > 0) {
+                params.setMarginStart(dpToPx(8));
+            }
+            dot.setLayoutParams(params);
+            dot.setImageResource(R.drawable.indicator_dot_inactive);
+            explorePaginationIndicator.addView(dot);
+            exploreDots.add(dot);
+        }
+    }
+
+    private void updateExploreIndicatorFromSnap() {
+        if (exploreSnapHelper == null || exploreLayoutManager == null) {
+            return;
+        }
+
+        android.view.View snappedView = exploreSnapHelper.findSnapView(exploreLayoutManager);
+        if (snappedView == null) {
+            return;
+        }
+
+        int position = exploreLayoutManager.getPosition(snappedView);
+        if (position != RecyclerView.NO_POSITION) {
+            updateExploreDots(position);
+        }
+    }
+
+    private void updateExploreDots(int activePosition) {
+        for (int i = 0; i < exploreDots.size(); i++) {
+            exploreDots.get(i).setImageResource(
+                    i == activePosition
+                            ? R.drawable.indicator_dot_active
+                            : R.drawable.indicator_dot_inactive
+            );
+        }
+    }
+
+    private int dpToPx(int dp) {
+        return (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dp,
+                getResources().getDisplayMetrics()
         );
+    }
+
+    private List<Product> getStaticFeaturedShops() {
+        List<Product> shops = new ArrayList<>();
+        shops.add(new Product(
+                R.drawable.product_1,
+                "Minute Burger",
+                "Quick burgers and budget-friendly bites that are easy to grab anytime.",
+                99.00f,
+                "Fast Food",
+                true,
+                4.8f,
+                "Always featured"
+        ));
+        shops.add(new Product(
+                R.drawable.product_2,
+                "Jollibee",
+                "Well-known comfort food with crowd favorites and familiar combo meals.",
+                149.00f,
+                "Chicken & Rice",
+                true,
+                4.9f,
+                "Always featured"
+        ));
+        shops.add(new Product(
+                R.drawable.product_3,
+                "McDonalds",
+                "Reliable fast-food staples with burgers, fries, and drinks users already know.",
+                139.00f,
+                "Burgers",
+                true,
+                4.7f,
+                "Always featured"
+        ));
+        shops.add(new Product(
+                R.drawable.product_4,
+                "KFC",
+                "Crispy chicken meals and box deals that fit the featured restaurant lane well.",
+                179.00f,
+                "Fried Chicken",
+                true,
+                4.8f,
+                "Always featured"
+        ));
+        return shops;
     }
 }
