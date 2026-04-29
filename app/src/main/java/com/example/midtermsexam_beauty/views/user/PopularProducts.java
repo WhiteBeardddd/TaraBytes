@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class PopularProducts extends AppCompatActivity {
 
-    private final ArrayList<OldProduct> popularProducts = new ArrayList<>();
+    private final ArrayList<Product> popularProducts = new ArrayList<>();
 
     ImageButton toPrevious;
 
@@ -35,9 +35,9 @@ public class PopularProducts extends AppCompatActivity {
 
         ListView popularListView = findViewById(R.id.popular_recycler);
 
-        popularProducts.addAll(OldProduct.getPopularProducts(this));
-        PopularAndFeaturedAdapter popularAdapter = new PopularAndFeaturedAdapter(this, popularProducts);
-        popularListView.setAdapter(popularAdapter);
+//        popularProducts.addAll(Product.getMeals(this));
+//        PopularAndFeaturedAdapter popularAdapter = new PopularAndFeaturedAdapter(this, popularProducts);
+//        popularListView.setAdapter(popularAdapter);
         popularListView.setOnItemClickListener((parent, view, position, id) -> {
             Product product = popularProducts.get(position);
             openProductDetails(product);
@@ -52,13 +52,12 @@ public class PopularProducts extends AppCompatActivity {
 
     private void openProductDetails(Product product) {
         Intent intent = new Intent(this, ViewProductDetails.class);
-        intent.putExtra("imageId", product.getImageId());
+        intent.putExtra("imageId", product.getImageID());
         intent.putExtra("name", product.getName());
         intent.putExtra("price", product.getPrice());
         intent.putExtra("description", product.getDescription());
         intent.putExtra("rating", product.getRating());
         intent.putExtra("category", product.getCategory());
-        intent.putExtra("skin_type", product.getSkin_type());
         startActivity(intent);
     }
 

@@ -2,12 +2,16 @@ package com.example.midtermsexam_beauty.views.user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.midtermsexam_beauty.R;
+import com.example.midtermsexam_beauty.adapters.NavbarCard;
 import com.example.midtermsexam_beauty.models.Profile;
 import com.example.midtermsexam_beauty.utilities.AppNavigator;
 import com.example.midtermsexam_beauty.utilities.SessionManager;
@@ -21,7 +25,7 @@ public class UserProfile extends AppCompatActivity {
 
     private EditText etFullName, etPhone;
     private SwitchMaterial switchIsSeller;
-    private ImageButton btnBack;
+    private ImageButton settingBtn, orderBtn, favBtn, addressBtn;
     private Button btnSave, btnLogout;
     private SessionManager session;
     private SupabaseAuthService authService;
@@ -39,15 +43,38 @@ public class UserProfile extends AppCompatActivity {
         etFullName = findViewById(R.id.etFullName);
         etPhone = findViewById(R.id.etPhone);
         switchIsSeller = findViewById(R.id.switchIsSeller);
-        btnBack = findViewById(R.id.back_btn);
+        settingBtn = findViewById(R.id.settings_btn);
+        orderBtn = findViewById(R.id.order_btn);
+        favBtn = findViewById(R.id.fav_btn);
+        addressBtn = findViewById(R.id.address_btn);
         btnSave = findViewById(R.id.btnSaveProfile);
         btnLogout = findViewById(R.id.btnLogout);
 
         loadProfile();
+        NavbarCard.setupNavbar(this);
 
-        btnBack.setOnClickListener(v -> finish());
+        settingBtn.setOnClickListener(v ->
+                Toast.makeText(this, "Going to settings", Toast.LENGTH_SHORT).show()
+        );
+
+        orderBtn.setOnClickListener(v ->
+                Toast.makeText(this, "Order Lists", Toast.LENGTH_SHORT).show()
+        );
+
+        favBtn.setOnClickListener(v ->
+                Toast.makeText(this, "Fav Product Lists", Toast.LENGTH_SHORT).show()
+        );
+
+        addressBtn.setOnClickListener(v ->
+                Toast.makeText(this, "Set the Location", Toast.LENGTH_SHORT).show()
+        );
+
         btnSave.setOnClickListener(v -> saveProfile());
+
         btnLogout.setOnClickListener(v -> AppNavigator.logout(this, session));
+
+        setupDropdown(R.id.headerSupport, R.id.contentSupport, R.id.arrowSupport);
+        setupDropdown(R.id.headerTerms, R.id.contentTerms, R.id.arrowTerms);
     }
 
     private void loadProfile() {
@@ -104,5 +131,24 @@ public class UserProfile extends AppCompatActivity {
     protected void onDestroy() {
         if (executor != null) executor.shutdown();
         super.onDestroy();
+    }
+
+    private void setupDropdown(int headerId, int contentId, int arrowId) {
+        LinearLayout header = findViewById(headerId);
+        LinearLayout content = findViewById(contentId);
+        ImageView arrow = findViewById(arrowId);
+
+        header.setOnClickListener(v -> {
+            if (content.getVisibility() == View.GONE) {
+                content.setVisibility(View.VISIBLE);
+                content.setAlpha(0f);
+                content.animate().alpha(1f).setDuration(200);
+                arrow.animate().rotation(180f).setDuration(200);
+            } else {
+                content.animate().alpha(0f).setDuration(200)
+                        .withEndAction(() -> content.setVisibility(View.GONE));
+                arrow.animate().rotation(0f).setDuration(200);
+            }
+        });
     }
 }

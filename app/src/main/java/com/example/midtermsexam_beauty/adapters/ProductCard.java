@@ -55,7 +55,8 @@ public class ProductCard extends RecyclerView.Adapter<ProductCard.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView displayImage;
-        TextView productName, productPrice, productDescription, productCategory;
+        TextView productName, productPrice, productDescription, productCategory, ratings, counterView;
+        Button addBtn, subtractBtn, addToCartBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,6 +86,13 @@ public class ProductCard extends RecyclerView.Adapter<ProductCard.ViewHolder> {
                 counterView.setText(String.valueOf(product.getCounter()));
             });
 
+            subtractBtn.setOnClickListener(v -> {
+                if (product.getCounter() > 0) {
+                    product.setCounter(product.getCounter() - 1);
+                    counterView.setText(String.valueOf(product.getCounter()));
+                }
+            });
+
             itemView.setOnClickListener(v -> {
                 if(listener != null) {
                     listener.onItemClick(product);
@@ -96,11 +104,9 @@ public class ProductCard extends RecyclerView.Adapter<ProductCard.ViewHolder> {
                     Toast.makeText(v.getContext(), "Can't buy 0 quantity!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(v.getContext(), "Added to cart!", Toast.LENGTH_SHORT).show();
-                    ProductManager.getInstance().addProduct(product);
+                    ProductManager.getInstance().addProduct(product, product.getCounter());
                 }
             });
-
-            itemView.setOnClickListener(v -> listener.onItemClick(product));
         }
     }
 }
