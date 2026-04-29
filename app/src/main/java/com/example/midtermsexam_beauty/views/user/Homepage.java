@@ -17,12 +17,12 @@ import com.example.midtermsexam_beauty.adapters.ProductCard;
 import com.example.midtermsexam_beauty.models.Product;
 import com.example.midtermsexam_beauty.adapters.NavbarCard;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Homepage extends AppCompatActivity {
 
-    private final ArrayList<Product> popularProducts = new ArrayList<>();
-    private final ArrayList<Product> featuredProducts = new ArrayList<>();
+//    private final ArrayList<OldProduct> popularProducts = new ArrayList<>();
+//    private final ArrayList<OldProduct> featuredProducts = new ArrayList<>();
     ImageButton proceedToProfile;
 
 
@@ -41,45 +41,40 @@ public class Homepage extends AppCompatActivity {
 
         NavbarCard.setupNavbar(this);
 
-        featuredProducts.addAll(Product.getDefaultProducts(this));
-        popularProducts.addAll(Product.getPopularProducts(this));
+        List<Product> featuredProducts = Product.getMeals(this, "bestSellers");
+        List<Product> popularProducts = Product.getMeals(this, "popular");
 
-
-        ProductCard featuredAdapter = new ProductCard(this, featuredProducts, product -> {
+        ProductCard.OnItemClickListener listener = product -> {
             Toast.makeText(this, "Clicked: " + product.getName(), Toast.LENGTH_SHORT).show();
+
             Intent intent = new Intent(this, ViewProductDetails.class);
-            intent.putExtra("imageId", product.getImageId());
+            intent.putExtra("imageId", product.getImageID());
             intent.putExtra("name", product.getName());
             intent.putExtra("price", product.getPrice());
             intent.putExtra("description", product.getDescription());
-            intent.putExtra("rating", product.getRating());
             intent.putExtra("category", product.getCategory());
-            intent.putExtra("skin_type", product.getSkin_type());
+            intent.putExtra("availability", product.getAvalability());
             startActivity(intent);
-        });
+        };
 
-        ProductCard popularAdapter = new ProductCard(this, popularProducts,  product -> {
-            Toast.makeText(this, "Clicked: " + product.getName(), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, ViewProductDetails.class);
-            intent.putExtra("imageId", product.getImageId());
-            intent.putExtra("name", product.getName());
-            intent.putExtra("price", product.getPrice());
-            intent.putExtra("description", product.getDescription());
-            intent.putExtra("rating", product.getRating());
-            intent.putExtra("category", product.getCategory());
-            intent.putExtra("skin_type", product.getSkin_type());
-            startActivity(intent);
-        });
+        // Adapters
+        ProductCard featuredAdapter = new ProductCard(this, featuredProducts, listener);
+        ProductCard popularAdapter = new ProductCard(this, popularProducts, listener);
 
-        featuredListView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        popularListView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        // Layouts
+        featuredListView.setLayoutManager(
+                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        );
+
+        popularListView.setLayoutManager(
+                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        );
 
         featuredListView.setAdapter(featuredAdapter);
         popularListView.setAdapter(popularAdapter);
 
         proceedToProfile.setOnClickListener(view -> {
-            Intent intent = new Intent(Homepage.this, UserProfile.class);
-            startActivity(intent);
+            startActivity(new Intent(Homepage.this, UserProfile.class));
         });
     }
     private void hideSystemUI() {
@@ -89,6 +84,7 @@ public class Homepage extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+        );
     }
 }

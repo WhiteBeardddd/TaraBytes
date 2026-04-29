@@ -1,9 +1,8 @@
+
 package com.example.midtermsexam_beauty.models;
 
 import android.content.Context;
 import android.content.res.Resources;
-
-import com.example.midtermsexam_beauty.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,106 +15,75 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Product {
-    private final int imageId;
+    private final int imageID;
     private final String name;
-    private final float price;
     private final String description;
-    private int counter;
-    private final float rating;
+    private final float price;
     private final String category;
-    private final String skin_type;
+    private final boolean availability;
 
-    public Product(int imageId, String name, float price, String description, int counter, float rating, String category, String skin_type) {
-        this.imageId = imageId;
+    public Product(int imageID, String name, String description, float price, String category, boolean availability) {
+        this.imageID = imageID;
         this.name = name;
-        this.price = price;
         this.description = description;
-        this.counter = counter;
-        this.rating = rating;
+        this.price = price;
         this.category = category;
-        this.skin_type = skin_type;
+        this.availability = availability;
     }
 
-    public int getImageId() {
-        return imageId;
-    }
+    public int getImageID() {return imageID;}
 
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name;}
 
-    public float getPrice() {
-        return price;
-    }
+    public String getDescription() {return  description;}
 
-    public String getDescription() {
-        return description;
-    }
+    public float getPrice() {return price;}
 
-    public int getCounter() {
-        return counter;
-    }
+    public String getCategory() {return category;}
 
-    public void setCounter(int counter) {
-        this.counter = counter;
-    }
+    public boolean getAvalability() {return  availability;}
 
-    public float getRating() {
-        return rating;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getSkin_type() {
-        return skin_type;
-    }
-
-    public static List<Product> getPopularProducts(Context context) {
-        return loadProductsFromJSON(context, "products.json", "popularProducts");
-    }
-
-    public static List<Product> getDefaultProducts(Context context) {
-        return loadProductsFromJSON(context, "products.json", "featuredProducts");
-    }
-
-    private static List<Product> loadProductsFromJSON(Context context, String fileName, String key) {
+    private static List<Product> loadMealsFromJSON(Context context, String fileName, String key) {
         List<Product> productList = new ArrayList<>();
+
         try {
-            InputStream is = context.getAssets().open(fileName);
-            int size = is.available();
+            InputStream writer = context.getAssets().open(fileName);
+            int size = writer.available();
             byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
+
+            writer.read(buffer);
+            writer.close();
 
             String json = new String(buffer, StandardCharsets.UTF_8);
             JSONObject jsonObject = new JSONObject(json);
-            JSONArray productsArray = jsonObject.getJSONArray(key);
+            JSONArray mealsArray = jsonObject.getJSONArray(key);
 
             Resources res = context.getResources();
 
-            for (int i = 0; i < productsArray.length(); i++) {
-                JSONObject obj = productsArray.getJSONObject(i);
+            for (int i = 0; i < mealsArray.length(); i++) {
+                JSONObject obj = mealsArray.getJSONObject(i);
 
-                int imageId = res.getIdentifier(obj.getString("imageId"), "drawable", context.getPackageName());
+                int imageID = res.getIdentifier(obj.getString("imageID"), "drawable", context.getPackageName());
                 String name = obj.getString("name");
                 float price = (float) obj.getDouble("price");
                 String description = obj.getString("description");
-                int counter = obj.getInt("counter");
-                float rating = (float) obj.getDouble("rating");
                 String category = obj.getString("category");
-                String skinType = obj.getString("skin_type");
+                boolean availability = obj.getBoolean("availability");
 
-                Product product = new Product(imageId, name, price, description, counter, rating, category, skinType);
-                productList.add(product);
+                Product addProduct = new Product(imageID,name, description, price, category, availability);
+                productList.add(addProduct);
             }
+
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
         return productList;
+    }
+
+    public static List<Product> getMeals(Context context, String fromWhere) {
+        return loadMealsFromJSON(context, "meals.json", fromWhere);
     }
 }
 

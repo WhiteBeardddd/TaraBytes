@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class FeaturedProducts extends AppCompatActivity {
 
-    private final ArrayList<Product> featuredProducts = new ArrayList<>();
+    private final ArrayList<OldProduct> featuredProducts = new ArrayList<>();
 
     ImageButton toPrevious;
 
@@ -36,7 +36,7 @@ public class FeaturedProducts extends AppCompatActivity {
 
         ListView featuredListView = findViewById(R.id.featured_recycler);
 
-        featuredProducts.addAll(Product.getDefaultProducts(this));
+        featuredProducts.addAll(OldProduct.getDefaultProducts(this));
 
 
         PopularAndFeaturedAdapter adapter = new PopularAndFeaturedAdapter(this, featuredProducts);

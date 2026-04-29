@@ -55,14 +55,14 @@ public class ProductCard extends RecyclerView.Adapter<ProductCard.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView displayImage;
-        TextView productName, productPrice, productDescription, ratings, counterView;
-        Button addBtn, subtractBtn, addToCartBtn;
+        TextView productName, productPrice, productDescription, productCategory;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            displayImage = itemView.findViewById(R.id.display_image);
+            displayImage = itemView.findViewById(R.id.product_image);
             productName = itemView.findViewById(R.id.product_name);
             productPrice = itemView.findViewById(R.id.product_price);
+            productCategory = itemView.findViewById(R.id.product_category);
             productDescription = itemView.findViewById(R.id.product_description);
             ratings = itemView.findViewById(R.id.ratings);
             counterView = itemView.findViewById(R.id.counter);
@@ -85,10 +85,9 @@ public class ProductCard extends RecyclerView.Adapter<ProductCard.ViewHolder> {
                 counterView.setText(String.valueOf(product.getCounter()));
             });
 
-            subtractBtn.setOnClickListener(v -> {
-                if (product.getCounter() > 0) {
-                    product.setCounter(product.getCounter() - 1);
-                    counterView.setText(String.valueOf(product.getCounter()));
+            itemView.setOnClickListener(v -> {
+                if(listener != null) {
+                    listener.onItemClick(product);
                 }
             });
 
