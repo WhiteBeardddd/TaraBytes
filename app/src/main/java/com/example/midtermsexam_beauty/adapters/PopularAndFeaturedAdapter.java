@@ -9,16 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.midtermsexam_beauty.R;
-import com.example.midtermsexam_beauty.models.Product;
+import com.example.midtermsexam_beauty.models.OldProduct;
 
 import java.util.List;
 import java.util.Locale;
 
 public class PopularAndFeaturedAdapter extends BaseAdapter {
     private final Context context;
-    private final List<Product> productList;
+    private final List<OldProduct> productList;
 
-    public PopularAndFeaturedAdapter(Context context, List<Product> productList) {
+    public PopularAndFeaturedAdapter(Context context, List<OldProduct> productList) {
         this.context = context;
         this.productList = productList;
     }
@@ -49,7 +49,7 @@ public class PopularAndFeaturedAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Product product = productList.get(position);
+        OldProduct product = productList.get(position);
         holder.productImage.setImageResource(product.getImageId());
         holder.productName.setText(product.getName());
         holder.productPrice.setText(String.format(Locale.US, "P%.2f", product.getPrice()));

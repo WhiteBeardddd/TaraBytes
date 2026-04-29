@@ -28,14 +28,9 @@
 
             <ImageView
                 android:id="@+id/imageView"
-<<<<<<< HEAD
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-=======
                 android:layout_width="55dp"
                 android:layout_height="49dp"
                 android:layout_gravity="start|center_vertical"
->>>>>>> 10d13a6e9e1114bff5ae58f4e3d4dc681546539a
                 android:src="@drawable/tarabytes"
                 tools:ignore="ContentDescription" />
 
@@ -69,15 +64,6 @@
 
             <ImageButton
                 android:id="@+id/toProfile"
-<<<<<<< HEAD
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:background="@drawable/surface_card_soft"
-                android:contentDescription="Profile Icon"
-                android:padding="12dp"
-                android:src="@drawable/ic_profile"
-                app:tint="@color/color_primary" />
-=======
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
@@ -88,7 +74,6 @@
                 android:focusable="true"
                 android:padding="10dp"
                 android:src="@drawable/ic_profile" />
->>>>>>> 10d13a6e9e1114bff5ae58f4e3d4dc681546539a
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView

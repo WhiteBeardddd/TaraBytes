@@ -10,15 +10,15 @@ import android.widget.TextView;
 
 import android.widget.BaseAdapter;
 import com.example.midtermsexam_beauty.R;
-import com.example.midtermsexam_beauty.models.Product;
+import com.example.midtermsexam_beauty.models.OldProduct;
 
 import java.util.List;
 
 public class CheckOutCard extends BaseAdapter {
-    private final List<Product> productList;
+    private final List<OldProduct> productList;
     private final LayoutInflater inflater;
 
-    public CheckOutCard(Context context, List<Product> productList) {
+    public CheckOutCard(Context context, List<OldProduct> productList) {
         this.productList = productList;
         this.inflater = LayoutInflater.from(context);
     }
@@ -51,7 +51,7 @@ public class CheckOutCard extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Product product = productList.get(position);
+        OldProduct product = productList.get(position);
         holder.productImage.setImageResource(product.getImageId());
         holder.productName.setText(product.getName());
         holder.productPrice.setText(String.format("₱ %.2f", product.getPrice()));

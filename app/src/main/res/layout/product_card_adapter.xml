@@ -11,14 +11,13 @@
     app:cardElevation="0dp">
 
     <LinearLayout
-        android:id="@+id/toViewItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="14dp">
 
         <ImageView
-            android:id="@+id/display_image"
+            android:id="@+id/product_image"
             android:layout_width="match_parent"
             android:layout_height="132dp"
             android:adjustViewBounds="true"
@@ -158,5 +157,4 @@
                 tools:ignore="HardcodedText" />
         </LinearLayout>
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>
