@@ -1,4 +1,3 @@
-
 package com.example.midtermsexam_beauty.models;
 
 import android.content.Context;
@@ -21,29 +20,70 @@ public class Product {
     private final float price;
     private final String category;
     private final boolean availability;
-    int count = 0;
-    float rating = 0;
+    private final float rating;
+    private final String skinType;
+    private int counter;
 
-    public Product(int imageID, String name, String description, float price, String category, boolean availability) {
+    public Product(int imageID, String name, String description, float price, String category,
+                   boolean availability, float rating, String skinType) {
         this.imageID = imageID;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.availability = availability;
+        this.rating = rating;
+        this.skinType = skinType;
+        this.counter = 0;
     }
 
-    public int getImageID() {return imageID;}
+    public int getImageID() {
+        return imageID;
+    }
 
-    public String getName() {return name;}
+    public int getImageId() {
+        return imageID;
+    }
 
-    public String getDescription() {return  description;}
+    public String getName() {
+        return name;
+    }
 
-    public float getPrice() {return price;}
+    public String getDescription() {
+        return description;
+    }
 
-    public String getCategory() {return category;}
+    public float getPrice() {
+        return price;
+    }
 
-    public boolean getAvalability() {return  availability;}
+    public String getCategory() {
+        return category;
+    }
+
+    public boolean getAvalability() {
+        return availability;
+    }
+
+    public boolean isAvailability() {
+        return availability;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public String getSkin_type() {
+        return skinType;
+    }
+
+    public int getCounter() {
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
 
     private static List<Product> loadMealsFromJSON(Context context, String fileName, String key) {
         List<Product> productList = new ArrayList<>();
@@ -71,11 +111,21 @@ public class Product {
                 String description = obj.getString("description");
                 String category = obj.getString("category");
                 boolean availability = obj.getBoolean("availability");
+                float rating = (float) obj.optDouble("rating", availability ? 4.8 : 4.2);
+                String skinType = obj.optString("skin_type", availability ? "Available now" : "Unavailable");
 
-                Product addProduct = new Product(imageID,name, description, price, category, availability);
+                Product addProduct = new Product(
+                        imageID,
+                        name,
+                        description,
+                        price,
+                        category,
+                        availability,
+                        rating,
+                        skinType
+                );
                 productList.add(addProduct);
             }
-
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -87,25 +137,4 @@ public class Product {
     public static List<Product> getMeals(Context context, String fromWhere) {
         return loadMealsFromJSON(context, "meals.json", fromWhere);
     }
-
-    public int getCounter() {
-        return this.count;
-    }
-
-    public void setCounter(int counter) {
-        this.count = counter;
-    }
-
-    public int getImageId() {
-        return imageID;
-    }
-
-    public float getRating() {
-        return rating;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
-    }
 }
-

@@ -2,66 +2,128 @@ package com.example.midtermsexam_beauty.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.views.user.Checkout;
 import com.example.midtermsexam_beauty.views.user.FeaturedProducts;
 import com.example.midtermsexam_beauty.views.user.Homepage;
 import com.example.midtermsexam_beauty.views.user.PopularProducts;
-import com.example.midtermsexam_beauty.views.user.SkinType;
+import com.example.midtermsexam_beauty.views.user.UserProfile;
 
 public class NavbarCard {
 
+    private static final int ACTIVE_COLOR = 0xFF2ED573;
+    private static final int INACTIVE_COLOR = 0xFFAAB3BC;
+
     public static void setupNavbar(Activity activity) {
-        ImageButton navHome = activity.findViewById(R.id.nav_home);
-        ImageButton navRatings = activity.findViewById(R.id.nav_ratings);
-        ImageButton navSkinTypes = activity.findViewById(R.id.nav_skin_types);
-        ImageButton navFeatured = activity.findViewById(R.id.nav_featured);
-        ImageButton navPayment = activity.findViewById(R.id.nav_payment);
+        View navigationBar = activity.findViewById(R.id.navigation_bar);
+        View navFoodTab = activity.findViewById(R.id.nav_food_tab);
+        View navSearchTab = activity.findViewById(R.id.nav_search_tab);
+        View navCartTab = activity.findViewById(R.id.nav_cart_tab);
+        View navAccountTab = activity.findViewById(R.id.nav_account_tab);
 
-        if (navHome != null) {
-            navHome.setOnClickListener(v -> navigateTo(activity, Homepage.class));
+        ImageButton navFood = activity.findViewById(R.id.nav_food);
+        ImageButton navSearch = activity.findViewById(R.id.nav_search);
+        ImageButton navCart = activity.findViewById(R.id.nav_cart);
+        ImageButton navAccount = activity.findViewById(R.id.nav_account);
+
+        TextView navFoodLabel = activity.findViewById(R.id.nav_food_label);
+        TextView navSearchLabel = activity.findViewById(R.id.nav_search_label);
+        TextView navCartLabel = activity.findViewById(R.id.nav_cart_label);
+        TextView navAccountLabel = activity.findViewById(R.id.nav_account_label);
+
+        applySystemBarInsets(navigationBar);
+
+        if (navFoodTab != null) {
+            navFoodTab.setOnClickListener(v -> navigateTo(activity, Homepage.class));
+        }
+        if (navFood != null) {
+            navFood.setOnClickListener(v -> navigateTo(activity, Homepage.class));
+        }
+        if (navSearchTab != null) {
+            navSearchTab.setOnClickListener(v -> navigateTo(activity, PopularProducts.class));
+        }
+        if (navSearch != null) {
+            navSearch.setOnClickListener(v -> navigateTo(activity, PopularProducts.class));
+        }
+        if (navCartTab != null) {
+            navCartTab.setOnClickListener(v -> navigateTo(activity, Checkout.class));
+        }
+        if (navCart != null) {
+            navCart.setOnClickListener(v -> navigateTo(activity, Checkout.class));
+        }
+        if (navAccountTab != null) {
+            navAccountTab.setOnClickListener(v -> navigateTo(activity, UserProfile.class));
+        }
+        if (navAccount != null) {
+            navAccount.setOnClickListener(v -> navigateTo(activity, UserProfile.class));
         }
 
-        if (navRatings != null) {
-            navRatings.setOnClickListener(v -> navigateTo(activity, PopularProducts.class));
+        setInactive(navFood, navFoodLabel);
+        setInactive(navSearch, navSearchLabel);
+        setInactive(navCart, navCartLabel);
+        setInactive(navAccount, navAccountLabel);
+
+        if (activity instanceof Homepage) {
+            setActive(navFood, navFoodLabel);
+        } else if (activity instanceof PopularProducts || activity instanceof FeaturedProducts) {
+            setActive(navSearch, navSearchLabel);
+        } else if (activity instanceof Checkout) {
+            setActive(navCart, navCartLabel);
+        } else if (activity instanceof UserProfile) {
+            setActive(navAccount, navAccountLabel);
+        }
+    }
+
+    private static void applySystemBarInsets(View navigationBar) {
+        if (navigationBar == null) {
+            return;
         }
 
-        if (navSkinTypes != null) {
-            navSkinTypes.setOnClickListener(v -> navigateTo(activity, SkinType.class));
-        }
+        final int left = navigationBar.getPaddingLeft();
+        final int top = navigationBar.getPaddingTop();
+        final int right = navigationBar.getPaddingRight();
+        final int bottom = navigationBar.getPaddingBottom();
 
-        if (navFeatured != null) {
-            navFeatured.setOnClickListener(v -> navigateTo(activity, FeaturedProducts.class));
-        }
-
-        if (navPayment != null) {
-            navPayment.setOnClickListener(v -> navigateTo(activity, Checkout.class));
-        }
-        
-        // Highlight active icon
-        highlightActiveIcon(activity, navHome, navRatings, navSkinTypes, navFeatured, navPayment);
+        ViewCompat.setOnApplyWindowInsetsListener(navigationBar, (view, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            view.setPadding(left, top, right, bottom + insets.bottom);
+            return windowInsets;
+        });
+        ViewCompat.requestApplyInsets(navigationBar);
     }
 
     private static void navigateTo(Activity activity, Class<?> targetClass) {
         if (!activity.getClass().equals(targetClass)) {
             Intent intent = new Intent(activity, targetClass);
-            // Flags to prevent re-rendering the whole stack and keep it smooth
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NO_ANIMATION);
             activity.startActivity(intent);
-            // Optional: disable transition animation
             activity.overridePendingTransition(0, 0);
         }
     }
 
-    private static void highlightActiveIcon(Activity activity, ImageButton... buttons) {
-        int orange = 0xFFFF5722; 
-        
-        if (activity instanceof Homepage && buttons[0] != null) buttons[0].setColorFilter(orange);
-        else if (activity instanceof PopularProducts && buttons[1] != null) buttons[1].setColorFilter(orange);
-        else if (activity instanceof SkinType && buttons[2] != null) buttons[2].setColorFilter(orange);
-        else if (activity instanceof FeaturedProducts && buttons[3] != null) buttons[3].setColorFilter(orange);
-        else if (activity instanceof Checkout && buttons[4] != null) buttons[4].setColorFilter(orange);
+    private static void setActive(ImageButton button, TextView label) {
+        if (button != null) {
+            button.setColorFilter(ACTIVE_COLOR);
+        }
+        if (label != null) {
+            label.setTextColor(ACTIVE_COLOR);
+        }
+    }
+
+    private static void setInactive(ImageButton button, TextView label) {
+        if (button != null) {
+            button.setColorFilter(INACTIVE_COLOR);
+        }
+        if (label != null) {
+            label.setTextColor(INACTIVE_COLOR);
+        }
     }
 }

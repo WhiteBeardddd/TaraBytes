@@ -5,61 +5,29 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_dark_bg"
     tools:context=".views.user.Checkout">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#1C1C1C">
+        android:background="@color/color_dark_bg"
+        android:orientation="vertical">
 
-        <!-- Header -->
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:elevation="8dp"
-            android:background="#212121"
-            android:orientation="horizontal"
-            android:padding="10dp">
+        <include layout="@layout/layout_top_brand_header" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="71dp"
-                android:layout_height="74dp"
-                android:layout_gravity="start|center_vertical"
-                android:src="@drawable/tarabytes"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:gravity="center_vertical"
-                android:text="TaraBytes"
-                android:textColor="#FFFFFF"
-                android:letterSpacing="0.3"
-                android:fontFamily="@font/lexend_black"
-                android:textSize="27sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText" />
-        </LinearLayout>
-
-        <!-- Content Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <!-- Back Button + Title Row -->
             <LinearLayout
                 android:id="@+id/title_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingHorizontal="12dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="6dp">
@@ -75,26 +43,25 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="40dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/lexend_semibold"
                     android:gravity="center"
+                    android:letterSpacing="0.1"
                     android:text="Check Out"
                     android:textColor="#FFFFFF"
-                    android:letterSpacing="0.1"
-                    android:fontFamily="@font/lexend_semibold"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_marginEnd="40dp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
 
-            <!-- Accent Divider -->
             <View
                 android:id="@+id/divider"
                 android:layout_width="60dp"
                 android:layout_height="3dp"
                 android:layout_gravity="center_horizontal"
-                android:background="#FF5722"
-                android:layout_marginBottom="6dp"/>
+                android:layout_marginBottom="6dp"
+                android:background="#FF5722" />
 
             <ListView
                 android:id="@+id/cart_list"
@@ -106,15 +73,14 @@
                 android:dividerHeight="8dp"
                 android:paddingHorizontal="12dp" />
 
-            <!-- Total + Proceed Bar -->
             <LinearLayout
                 android:id="@+id/total_price_container"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:background="#212121"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="12dp"
-                android:gravity="center_vertical">
+                android:padding="12dp">
 
                 <TextView
                     android:id="@+id/total_price_label"
@@ -130,7 +96,7 @@
                     android:id="@+id/total_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="₱0.00"
+                    android:text="&#8369;0.00"
                     android:textColor="#00C853"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -139,20 +105,19 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="46dp"
+                    android:layout_marginStart="16dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#FF5722"
+                    android:stateListAnimator="@null"
                     android:text="Proceed to Payment"
-                    android:textColor="#FFFFFF"
                     android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:backgroundTint="#FF5722"
-                    android:layout_marginStart="16dp"
-                    android:stateListAnimator="@null"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Bottom Navigation Bar -->
         <include
             android:id="@+id/navigation_bar"
             layout="@layout/layout_navbar" />

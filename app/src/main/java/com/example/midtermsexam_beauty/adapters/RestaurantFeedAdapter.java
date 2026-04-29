@@ -16,16 +16,12 @@ import com.example.midtermsexam_beauty.models.Product;
 import java.util.List;
 import java.util.Locale;
 
-public class ProductCard extends RecyclerView.Adapter<ProductCard.ViewHolder> {
+public class RestaurantFeedAdapter extends RecyclerView.Adapter<RestaurantFeedAdapter.ViewHolder> {
     private final Context context;
     private final List<Product> productList;
-    private final OnItemClickListener listener;
+    private final ProductCard.OnItemClickListener listener;
 
-    public interface OnItemClickListener {
-        void onItemClick(Product product);
-    }
-
-    public ProductCard(Context context, List<Product> productList, OnItemClickListener listener) {
+    public RestaurantFeedAdapter(Context context, List<Product> productList, ProductCard.OnItemClickListener listener) {
         this.context = context;
         this.productList = productList;
         this.listener = listener;
@@ -34,7 +30,7 @@ public class ProductCard extends RecyclerView.Adapter<ProductCard.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.product_card_adapter, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_explore_restaurant_card, parent, false);
         return new ViewHolder(view);
     }
 
@@ -53,22 +49,25 @@ public class ProductCard extends RecyclerView.Adapter<ProductCard.ViewHolder> {
         private final TextView productName;
         private final TextView productDescription;
         private final TextView productCategory;
+        private final TextView productAvailability;
         private final TextView productPrice;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            productImage = itemView.findViewById(R.id.product_image);
-            productName = itemView.findViewById(R.id.product_name);
-            productDescription = itemView.findViewById(R.id.product_description);
-            productCategory = itemView.findViewById(R.id.product_category);
-            productPrice = itemView.findViewById(R.id.product_price);
+            productImage = itemView.findViewById(R.id.explore_product_image);
+            productName = itemView.findViewById(R.id.explore_product_name);
+            productDescription = itemView.findViewById(R.id.explore_product_description);
+            productCategory = itemView.findViewById(R.id.explore_product_category);
+            productAvailability = itemView.findViewById(R.id.explore_product_availability);
+            productPrice = itemView.findViewById(R.id.explore_product_price);
         }
 
-        void bind(Product product, OnItemClickListener listener) {
+        void bind(Product product, ProductCard.OnItemClickListener listener) {
             productImage.setImageResource(product.getImageID());
             productName.setText(product.getName());
             productDescription.setText(product.getDescription());
             productCategory.setText(product.getCategory());
+            productAvailability.setText(product.getAvalability() ? "Available" : "Sold out");
             productPrice.setText(String.format(Locale.US, "P%.2f", product.getPrice()));
 
             itemView.setOnClickListener(v -> {
