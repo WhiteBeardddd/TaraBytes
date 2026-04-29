@@ -1,17 +1,17 @@
 package com.example.midtermsexam_beauty.views.user;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.midtermsexam_beauty.R;
+import com.example.midtermsexam_beauty.utilities.AppNavigator;
 import com.example.midtermsexam_beauty.utilities.SessionManager;
 import com.example.midtermsexam_beauty.utilities.SupabaseAuthService;
-import com.example.midtermsexam_beauty.views.seller.SellerDashboard;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,8 +20,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText etUsername, etPassword;
     private Button btnLoginSubmit;
+    private ImageButton btnBack;
     private SupabaseAuthService authService;
     private ExecutorService executor;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +33,22 @@ public class LoginActivity extends AppCompatActivity {
 
         hideSystemUI();
 
+        sessionManager = new SessionManager(this);
+        if (sessionManager.isLoggedIn()) {
+            AppNavigator.openAuthenticatedHome(this, sessionManager.isSeller(), true);
+            return;
+        }
+
         authService = new SupabaseAuthService();
         executor = Executors.newSingleThreadExecutor();
 
         etUsername = findViewById(R.id.usernameEditText);
         etPassword = findViewById(R.id.passwordEditText);
         btnLoginSubmit = findViewById(R.id.loginButton);
+        btnBack = findViewById(R.id.back_btn);
         etUsername.setHint("Email");
+
+        btnBack.setOnClickListener(v -> finish());
 
         btnLoginSubmit.setOnClickListener(v -> {
             String email = etUsername.getText().toString().trim();
@@ -53,24 +64,16 @@ public class LoginActivity extends AppCompatActivity {
                     SupabaseAuthService.AuthResult result = authService.signIn(email, pass);
                     if (result.success) {
                         // Save session
-                        SessionManager session = new SessionManager(LoginActivity.this);
-                        session.saveSession(result.accessToken, result.userId);
+                        sessionManager.saveSession(result.accessToken, result.userId);
 
                         // Check if seller
                         boolean seller = authService.isSeller(result.accessToken, result.userId);
-                        session.setIsSeller(seller);
+                        sessionManager.setIsSeller(seller);
 
                         runOnUiThread(() -> {
                             btnLoginSubmit.setEnabled(true);
                             Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                            Intent intent;
-                            if (seller) {
-                                intent = new Intent(LoginActivity.this, SellerDashboard.class);
-                            } else {
-                                intent = new Intent(LoginActivity.this, Homepage.class);
-                            }
-                            startActivity(intent);
-                            finish();
+                            AppNavigator.openAuthenticatedHome(LoginActivity.this, seller, true);
                         });
                     } else {
                         runOnUiThread(() -> {

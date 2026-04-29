@@ -141,6 +141,8 @@ public class SupabaseAuthService {
                 os.write(bytes, 0, bytes.length);
             }
 
+
+
             int statusCode = conn.getResponseCode();
             conn.disconnect();
             return statusCode >= 200 && statusCode < 300;

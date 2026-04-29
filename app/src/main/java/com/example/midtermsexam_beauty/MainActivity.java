@@ -8,12 +8,15 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.example.midtermsexam_beauty.utilities.AppNavigator;
+import com.example.midtermsexam_beauty.utilities.SessionManager;
 import com.example.midtermsexam_beauty.views.user.LoginActivity;
 import com.example.midtermsexam_beauty.views.user.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity {
     Button logInBtn;
     Button signUpBtn;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         hideSystemUI();
+        sessionManager = new SessionManager(this);
+
+        if (sessionManager.isLoggedIn()) {
+            AppNavigator.openAuthenticatedHome(this, sessionManager.isSeller(), true);
+            return;
+        }
 
         logInBtn = findViewById(R.id.logInButton);
         signUpBtn = findViewById(R.id.signUpButton);
@@ -48,4 +57,5 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
+
 }

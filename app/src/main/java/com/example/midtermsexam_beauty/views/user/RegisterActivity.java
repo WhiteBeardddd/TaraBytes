@@ -1,15 +1,17 @@
 package com.example.midtermsexam_beauty.views.user;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.midtermsexam_beauty.R;
+import com.example.midtermsexam_beauty.utilities.AppNavigator;
+import com.example.midtermsexam_beauty.utilities.SessionManager;
 import com.example.midtermsexam_beauty.utilities.SupabaseAuthService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,9 +20,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText etUsername, etEmail, etPassword, etConfirmPassword;
     private Button btnSignUp;
+    private ImageButton btnBack;
     private TextView tvBackToLogin;
     private SupabaseAuthService authService;
     private ExecutorService executor;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         hideSystemUI();
 
+        sessionManager = new SessionManager(this);
+        if (sessionManager.isLoggedIn()) {
+            AppNavigator.openAuthenticatedHome(this, sessionManager.isSeller(), true);
+            return;
+        }
+
         authService = new SupabaseAuthService();
         executor = Executors.newSingleThreadExecutor();
 
@@ -38,7 +48,10 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.regPasswordEditText);
         etConfirmPassword = findViewById(R.id.regConfirmPasswordEditText);
         btnSignUp = findViewById(R.id.registerButton);
+        btnBack = findViewById(R.id.back_btn);
         tvBackToLogin = findViewById(R.id.backToLoginTextView);
+
+        btnBack.setOnClickListener(v -> finish());
 
         btnSignUp.setOnClickListener(v -> {
             String user = etUsername.getText().toString().trim();
@@ -60,9 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
                         btnSignUp.setEnabled(true);
                         if (result.success) {
                             Toast.makeText(this, result.message, Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                            AppNavigator.openLogin(RegisterActivity.this, true);
                         } else {
                             Toast.makeText(this, result.message, Toast.LENGTH_LONG).show();
                         }
@@ -72,9 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         tvBackToLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+            AppNavigator.openLogin(RegisterActivity.this, true);
         });
     }
 

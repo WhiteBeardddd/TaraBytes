@@ -11,7 +11,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.adapters.CheckOutCard;
-import com.example.midtermsexam_beauty.models.OldProduct;
+import com.example.midtermsexam_beauty.models.Product;
+import com.example.midtermsexam_beauty.adapters.NavbarCard;
 import com.example.midtermsexam_beauty.utilities.ProductManager;
 
 import java.util.List;
@@ -20,8 +21,7 @@ public class Checkout extends AppCompatActivity {
     private List<OldProduct> productList;
     private TextView totalPriceText;
 
-    ImageButton toPrevious, proceedToRatings, proceedToHome,
-            proceedToFeatured, proceedToSkinTypes;
+    ImageButton toPrevious;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -30,12 +30,10 @@ public class Checkout extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
         hideSystemUI();
 
+        // Initialize Navbar
+        NavbarCard.setupNavbar(this);
 
         toPrevious = findViewById(R.id.back_btn);
-        proceedToFeatured = findViewById(R.id.nav_featured);
-        proceedToRatings = findViewById(R.id.nav_ratings);
-        proceedToHome = findViewById(R.id.nav_home);
-        proceedToSkinTypes = findViewById(R.id.nav_skin_types);
 
         ListView cartListView = findViewById(R.id.cart_list);
         totalPriceText = findViewById(R.id.total_price); // Get Total Price TextView
@@ -48,30 +46,7 @@ public class Checkout extends AppCompatActivity {
         updateTotalPrice();
 
         // Navigation Buttons
-
-        toPrevious.setOnClickListener(view -> startActivity(new Intent(Checkout.this, Homepage.class)));
-
-        proceedToHome.setOnClickListener(view -> {
-            Intent intent = new Intent(Checkout.this, Homepage.class);
-            startActivity(intent);
-        });
-
-        proceedToFeatured.setOnClickListener(view -> {
-            Intent intent = new Intent(Checkout.this, FeaturedProducts.class);
-            startActivity(intent);
-        });
-
-        proceedToSkinTypes.setOnClickListener(view -> {
-            Intent intent = new Intent(Checkout.this, SkinType.class);
-            startActivity(intent);
-        });
-
-        proceedToRatings.setOnClickListener(view -> {
-            Intent intent = new Intent(Checkout.this, PopularProducts.class);
-            startActivity(intent);
-        });
-
-
+        toPrevious.setOnClickListener(view -> finish());
     }
 
     private void hideSystemUI() {

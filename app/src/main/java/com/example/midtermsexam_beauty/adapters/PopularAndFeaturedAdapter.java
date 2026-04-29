@@ -12,6 +12,7 @@ import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.models.OldProduct;
 
 import java.util.List;
+import java.util.Locale;
 
 public class PopularAndFeaturedAdapter extends BaseAdapter {
     private final Context context;
@@ -51,11 +52,11 @@ public class PopularAndFeaturedAdapter extends BaseAdapter {
         OldProduct product = productList.get(position);
         holder.productImage.setImageResource(product.getImageId());
         holder.productName.setText(product.getName());
-        holder.productPrice.setText(String.format("₱%.2f", product.getPrice()));
+        holder.productPrice.setText(String.format(Locale.US, "P%.2f", product.getPrice()));
         holder.productDescription.setText(product.getDescription());
-        holder.productRating.setText(String.format("⭐ %.1f", product.getRating()));
+        holder.productRating.setText(String.format(Locale.US, "%.1f", product.getRating()));
         holder.productCategory.setText("Category: " + product.getCategory());
-        holder.productSkinType.setText("Skin Type: " + product.getSkin_type());
+        holder.productSkinType.setText("Best for: " + product.getSkin_type());
 
         return convertView;
     }
@@ -64,7 +65,7 @@ public class PopularAndFeaturedAdapter extends BaseAdapter {
         ImageView productImage;
         TextView productName, productPrice, productDescription, productRating, productCategory, productSkinType;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             productImage = view.findViewById(R.id.large_product_image);
             productName = view.findViewById(R.id.product_name);
             productPrice = view.findViewById(R.id.product_price);

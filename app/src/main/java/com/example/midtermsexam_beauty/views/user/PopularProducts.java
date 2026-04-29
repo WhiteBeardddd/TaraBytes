@@ -11,7 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.adapters.PopularAndFeaturedAdapter;
-import com.example.midtermsexam_beauty.models.OldProduct;
+import com.example.midtermsexam_beauty.models.Product;
+import com.example.midtermsexam_beauty.adapters.NavbarCard;
 
 import java.util.ArrayList;
 
@@ -19,8 +20,7 @@ public class PopularProducts extends AppCompatActivity {
 
     private final ArrayList<OldProduct> popularProducts = new ArrayList<>();
 
-    ImageButton toPrevious, proceedToFeatured, proceedToHome,
-              proceedToSkinTypes, proceedToCheckout;
+    ImageButton toPrevious;
 
 
     @Override
@@ -30,47 +30,38 @@ public class PopularProducts extends AppCompatActivity {
         setContentView(R.layout.activity_popular_products);
         hideSystemUI();
 
+        // Initialize Navbar
+        NavbarCard.setupNavbar(this);
 
         ListView popularListView = findViewById(R.id.popular_recycler);
 
         popularProducts.addAll(OldProduct.getPopularProducts(this));
         PopularAndFeaturedAdapter popularAdapter = new PopularAndFeaturedAdapter(this, popularProducts);
         popularListView.setAdapter(popularAdapter);
+        popularListView.setOnItemClickListener((parent, view, position, id) -> {
+            Product product = popularProducts.get(position);
+            openProductDetails(product);
+        });
 
 
         toPrevious = findViewById(R.id.back_btn);
-        proceedToFeatured = findViewById(R.id.nav_featured);
-        proceedToHome = findViewById(R.id.nav_home);
-        proceedToSkinTypes = findViewById(R.id.nav_skin_types);
-        proceedToCheckout = findViewById(R.id.nav_payment);
-
 
         // Navigation Buttons
-
-        toPrevious.setOnClickListener(view -> startActivity(new Intent(PopularProducts.this, Homepage.class)));
-
-        proceedToHome.setOnClickListener(view -> {
-            Intent intent = new Intent(PopularProducts.this, Homepage.class);
-            startActivity(intent);
-        });
-
-        proceedToFeatured.setOnClickListener(view -> {
-            Intent intent = new Intent(PopularProducts.this, FeaturedProducts.class);
-            startActivity(intent);
-        });
-
-        proceedToSkinTypes.setOnClickListener(view -> {
-            Intent intent = new Intent(PopularProducts.this, SkinType.class);
-            startActivity(intent);
-        });
-
-        proceedToCheckout.setOnClickListener(view -> {
-            Intent intent = new Intent(PopularProducts.this, Checkout.class);
-            startActivity(intent);
-        });
-
-
+        toPrevious.setOnClickListener(view -> finish());
     }
+
+    private void openProductDetails(Product product) {
+        Intent intent = new Intent(this, ViewProductDetails.class);
+        intent.putExtra("imageId", product.getImageId());
+        intent.putExtra("name", product.getName());
+        intent.putExtra("price", product.getPrice());
+        intent.putExtra("description", product.getDescription());
+        intent.putExtra("rating", product.getRating());
+        intent.putExtra("category", product.getCategory());
+        intent.putExtra("skin_type", product.getSkin_type());
+        startActivity(intent);
+    }
+
     private void hideSystemUI() {
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.midtermsexam_beauty.R;
 import com.example.midtermsexam_beauty.adapters.ProductCard;
 import com.example.midtermsexam_beauty.models.Product;
-import com.example.midtermsexam_beauty.utilities.NavbarHelper;
+import com.example.midtermsexam_beauty.adapters.NavbarCard;
 
 import java.util.List;
 
@@ -39,8 +39,7 @@ public class Homepage extends AppCompatActivity {
 
         proceedToProfile = findViewById(R.id.toProfile);
 
-        // Setup common navbar
-        NavbarHelper.setupNavbar(this);
+        NavbarCard.setupNavbar(this);
 
         List<Product> featuredProducts = Product.getMeals(this, "bestSellers");
         List<Product> popularProducts = Product.getMeals(this, "popular");

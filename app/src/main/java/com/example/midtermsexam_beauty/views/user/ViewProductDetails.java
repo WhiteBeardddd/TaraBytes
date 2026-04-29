@@ -14,13 +14,15 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.midtermsexam_beauty.R;
+import com.example.midtermsexam_beauty.adapters.NavbarHelper;
+
+import java.util.Locale;
 
 public class ViewProductDetails extends AppCompatActivity {
     ImageView productImage;
-    TextView productName, productPrice, productDescription, productCategory, productQuantity;
-    Button addBtn, minusBtn, confirmBtn;
-
-    int currentQuantity = 0;
+    TextView productName, productPrice, productDescription,
+            productRating, productCategory, productSkinType;
+    ImageButton toPrevious;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -30,58 +32,35 @@ public class ViewProductDetails extends AppCompatActivity {
         setContentView(R.layout.product_view_details);
         hideSystemUI();
 
-        productImage = findViewById(R.id.product_image);
-        productName = findViewById(R.id.product_name);
-        productPrice = findViewById(R.id.product_price);
-        productDescription = findViewById(R.id.product_description);
-        productCategory = findViewById(R.id.product_category);
+        productImage = findViewById(R.id.display_image);
+        productName = findViewById(R.id.productName);
+        productPrice = findViewById(R.id.productPrice);
+        productDescription = findViewById(R.id.productDescription);
+        productRating = findViewById(R.id.productRating);
+        productCategory = findViewById(R.id.productCategory);
+        productSkinType = findViewById(R.id.productSkinType);
+        toPrevious = findViewById(R.id.back_btn);
 
-        addBtn = findViewById(R.id.add_btn);
-        productQuantity = findViewById(R.id.product_quantity);
-        minusBtn = findViewById(R.id.minus_btn);
-        confirmBtn = findViewById(R.id.confirm_buy_btn);
+        NavbarHelper.setupNavbar(this);
 
-
-        // Get product details from intent
         Intent intent = getIntent();
         int imageId = intent.getIntExtra("imageId", 0);
         String name = intent.getStringExtra("name");
         float price = intent.getFloatExtra("price", 0.0f);
         String description = intent.getStringExtra("description");
+        float rating = intent.getFloatExtra("rating", 0.0f);
         String category = intent.getStringExtra("category");
+        String skinType = intent.getStringExtra("skin_type");
 
-        // SET VALUES
         productImage.setImageResource(imageId);
-        productName.setText(name != null ? name : "No Name");
-        productPrice.setText("₱" + price);
-        productDescription.setText(description != null ? description : "No Description");
-        productCategory.setText(category != null ? category : "No Category");
-        productQuantity.setText(String.valueOf(currentQuantity));
+        productName.setText(name);
+        productPrice.setText(String.format(Locale.US, "P%.2f", price));
+        productDescription.setText(description);
+        productRating.setText(String.format(Locale.US, "Rating: %.1f", rating));
+        productCategory.setText(category);
+        productSkinType.setText(skinType);
 
-        // Add Button
-        addBtn.setOnClickListener(v -> {
-            currentQuantity++;
-            productQuantity.setText(String.valueOf(currentQuantity));
-        });
-
-        // Minus Button
-        minusBtn.setOnClickListener(v -> {
-            if (currentQuantity > 0) {
-                currentQuantity--;
-                productQuantity.setText(String.valueOf(currentQuantity));
-            }
-        });
-
-        // Confirm Button
-        confirmBtn.setOnClickListener(v -> {
-            if (currentQuantity <= 0) {
-                Toast.makeText(this, "Please select quantity first!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this,
-                        "Added " + currentQuantity + " item(s) to cart!",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        toPrevious.setOnClickListener(v -> finish());
     }
 
     private void hideSystemUI() {
