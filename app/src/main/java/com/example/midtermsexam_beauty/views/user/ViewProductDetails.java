@@ -14,7 +14,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.midtermsexam_beauty.R;
-//import com.example.midtermsexam_beauty.adapters.NavbarHelper;
+import com.example.midtermsexam_beauty.adapters.NavbarCard;
 
 import java.util.Locale;
 
@@ -41,7 +41,7 @@ public class ViewProductDetails extends AppCompatActivity {
         productSkinType = findViewById(R.id.productSkinType);
         toPrevious = findViewById(R.id.back_btn);
 
-//        NavbarHelper.setupNavbar(this);
+        NavbarCard.setupNavbar(this);
 
         Intent intent = getIntent();
         int imageId = intent.getIntExtra("imageId", 0);

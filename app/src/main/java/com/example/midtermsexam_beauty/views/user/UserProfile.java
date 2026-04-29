@@ -98,6 +98,23 @@ public class UserProfile extends AppCompatActivity {
         String phone = etPhone.getText().toString().trim();
         boolean isSeller = switchIsSeller.isChecked();
 
+        // 🔍 Debug session values before doing anything
+        android.util.Log.d("PATCH_DEBUG", "=== saveProfile called ===");
+        android.util.Log.d("PATCH_DEBUG", "session.getToken(): " + session.getToken());
+        android.util.Log.d("PATCH_DEBUG", "session.getUserId(): " + session.getUserId());
+
+        if (session.getToken() == null || session.getUserId() == null) {
+            Toast.makeText(this, "Session expired. Please log in again.", Toast.LENGTH_SHORT).show();
+            AppNavigator.logout(this, session);
+            return;
+        }
+
+        if (fullName.isEmpty()) {
+            etFullName.setError("Name is required");
+            etFullName.requestFocus();
+            return;
+        }
+
         btnSave.setEnabled(false);
         executor.execute(() -> {
             boolean success = authService.updateProfile(
@@ -108,11 +125,10 @@ public class UserProfile extends AppCompatActivity {
                     isSeller
             );
 
-            session.setIsSeller(isSeller);
-
             runOnUiThread(() -> {
                 btnSave.setEnabled(true);
                 if (success) {
+                    session.setIsSeller(isSeller);
                     Toast.makeText(this, "Profile updated!", Toast.LENGTH_SHORT).show();
                     if (isSeller) {
                         startActivity(new Intent(this, SellerDashboard.class));
