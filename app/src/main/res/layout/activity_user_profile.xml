@@ -110,7 +110,6 @@
                         android:layout_height="70dp"
                         android:layout_weight="1"
                         android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
                         android:background="@drawable/icon_button_bg"
                         android:contentDescription="Favorites"
                         android:padding="16dp"
@@ -124,12 +123,27 @@
                         android:layout_width="0dp"
                         android:layout_height="70dp"
                         android:layout_weight="1"
+                        android:layout_marginLeft="4dp"
                         android:background="@drawable/icon_button_bg"
                         android:contentDescription="Address"
                         android:padding="16dp"
                         android:scaleType="centerInside"
                         app:srcCompat="@drawable/location_icon"
                         app:tint="@color/color_accent_teal"
+                        tools:ignore="HardcodedText" />
+
+                    <ImageButton
+                        android:id="@+id/settings_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="4dp"
+                        android:background="@drawable/icon_button_bg"
+                        android:contentDescription="Settings"
+                        android:padding="16dp"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/settings_gear"
+                        app:tint="@color/color_gray"
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
 
