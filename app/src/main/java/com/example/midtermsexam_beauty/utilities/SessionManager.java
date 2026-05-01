@@ -8,6 +8,7 @@ public class SessionManager {
     private static final String KEY_TOKEN = "access_token";
     private static final String KEY_USER_ID = "user_id";
     private static final String KEY_IS_SELLER = "is_seller";
+    private static final String KEY_SELLER_ID = "seller_id";
 
     private final SharedPreferences prefs;
 
@@ -22,12 +23,17 @@ public class SessionManager {
                 .apply();
     }
 
+    public void setSellerId(String sellerId) {
+        prefs.edit().putString(KEY_SELLER_ID, sellerId).apply();
+    }
+
     public void setIsSeller(boolean isSeller) {
         prefs.edit().putBoolean(KEY_IS_SELLER, isSeller).apply();
     }
 
     public String getToken() { return prefs.getString(KEY_TOKEN, null); }
     public String getUserId() { return prefs.getString(KEY_USER_ID, null); }
+    public String getSellerId() { return prefs.getString(KEY_SELLER_ID, null); }
     public boolean isSeller() { return prefs.getBoolean(KEY_IS_SELLER, false); }
 
     public void clearSession() { prefs.edit().clear().apply(); }

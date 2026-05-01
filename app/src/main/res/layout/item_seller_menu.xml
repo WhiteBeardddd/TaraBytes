@@ -61,16 +61,32 @@
             android:textSize="14sp"
             tools:ignore="HardcodedText" />
 
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="@font/lexend_medium"
-            android:text="Available"
-            android:textColor="@color/pill_green"
-            android:textSize="11sp"
-            tools:ignore="HardcodedText" />
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchAvailable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="0dp"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                app:useMaterialThemeColors="true" />
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lexend_medium"
+                android:text="Available"
+                android:textColor="@color/pill_green"
+                android:textSize="11sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
