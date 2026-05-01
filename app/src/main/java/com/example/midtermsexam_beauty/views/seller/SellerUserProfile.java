@@ -1,4 +1,4 @@
-package com.example.midtermsexam_beauty.views.user;
+package com.example.midtermsexam_beauty.views.seller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,19 +13,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.midtermsexam_beauty.R;
-import com.example.midtermsexam_beauty.adapters.NavbarCard;
 import com.example.midtermsexam_beauty.adapters.SellerNavCard;
 import com.example.midtermsexam_beauty.models.Profile;
 import com.example.midtermsexam_beauty.utilities.AppNavigator;
 import com.example.midtermsexam_beauty.utilities.SessionManager;
 import com.example.midtermsexam_beauty.utilities.SupabaseAuthService;
-import com.example.midtermsexam_beauty.views.seller.SellerDashboard;
+import com.example.midtermsexam_beauty.views.user.Homepage;
+import com.example.midtermsexam_beauty.views.user.UserProfile;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class UserProfile extends AppCompatActivity {
+public class SellerUserProfile extends AppCompatActivity {
 
     private EditText etFullName, etPhone;
     private SwitchMaterial switchIsSeller;
@@ -38,17 +38,14 @@ public class UserProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.activity_seller_user_profile);
 
         session = new SessionManager(this);
         authService = new SupabaseAuthService();
         executor = Executors.newSingleThreadExecutor();
 
-        if (session.isSeller()) {
-            SellerNavCard.setupNavbar(this);
-        } else {
-            NavbarCard.setupNavbar(this);
-        }
+        // Ensure we use the Seller Navbar logic
+        SellerNavCard.setupNavbar(this);
 
         etFullName = findViewById(R.id.etFullName);
         etPhone = findViewById(R.id.etPhone);
@@ -133,10 +130,13 @@ public class UserProfile extends AppCompatActivity {
                 if (success) {
                     session.setIsSeller(isSeller);
                     Toast.makeText(this, "Profile updated!", Toast.LENGTH_SHORT).show();
-                    if (isSeller) {
-                        startActivity(new Intent(this, SellerDashboard.class));
+                    
+                    if (!isSeller) {
+                        // Redirect to standard UserProfile if they disabled seller mode
+                        startActivity(new Intent(this, UserProfile.class));
                     } else {
-                        startActivity(new Intent(this, Homepage.class));
+                        // Stay in seller dashboard
+                        startActivity(new Intent(this, SellerDashboard.class));
                     }
                     finish();
                 } else {

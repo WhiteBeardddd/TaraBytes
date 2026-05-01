@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="76dp"
+    android:background="@color/surface_elevated"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingStart="4dp"
+    android:paddingTop="6dp"
+    android:paddingEnd="4dp"
+    android:paddingBottom="8dp"
+    android:weightSum="5">
+
+    <!-- Stats -->
+    <LinearLayout
+        android:id="@+id/nav_dash_tab"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="4dp">
+        <ImageButton
+            android:id="@+id/nav_dash_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:focusable="false"
+            android:src="@drawable/tarabytes"
+            app:tint="@color/text_secondary"
+            tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/nav_dash_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/lexend_medium"
+            android:text="Stats"
+            android:textColor="@color/text_secondary"
+            android:textSize="10sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <!-- Menu -->
+    <LinearLayout
+        android:id="@+id/nav_menu_tab"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="4dp">
+        <ImageButton
+            android:id="@+id/nav_menu_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:focusable="false"
+            android:src="@drawable/skin_type_icon"
+            app:tint="@color/text_secondary"
+            tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/nav_menu_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/lexend_medium"
+            android:text="Menu"
+            android:textColor="@color/text_secondary"
+            android:textSize="10sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <!-- Orders -->
+    <LinearLayout
+        android:id="@+id/nav_orders_tab"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="4dp">
+        <ImageButton
+            android:id="@+id/nav_orders_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:focusable="false"
+            android:src="@drawable/home_icon"
+            app:tint="@color/text_secondary"
+            tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/nav_orders_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/lexend_medium"
+            android:text="Orders"
+            android:textColor="@color/text_secondary"
+            android:textSize="10sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <!-- History -->
+    <LinearLayout
+        android:id="@+id/nav_history_tab"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="4dp">
+        <ImageButton
+            android:id="@+id/nav_history_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:focusable="false"
+            android:src="@drawable/wallet_icon"
+            app:tint="@color/text_secondary"
+            tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/nav_history_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/lexend_medium"
+            android:text="History"
+            android:textColor="@color/text_secondary"
+            android:textSize="10sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <!-- Profile -->
+    <LinearLayout
+        android:id="@+id/nav_account_tab"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="4dp">
+        <ImageButton
+            android:id="@+id/nav_account_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:focusable="false"
+            android:src="@drawable/ic_profile"
+            app:tint="@color/text_secondary"
+            tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/nav_account_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/lexend_medium"
+            android:text="Profile"
+            android:textColor="@color/text_secondary"
+            android:textSize="10sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+</LinearLayout>

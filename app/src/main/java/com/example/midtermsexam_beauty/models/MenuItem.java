@@ -33,6 +33,8 @@ public class MenuItem {
     @SerializedName("updated_at")
     private String updatedAt;
 
+    public MenuItem() {}
+
     // Getters
     public String getId() { return id; }
     public String getSellerId() { return sellerId; }
@@ -44,4 +46,16 @@ public class MenuItem {
     public String getImageUrl() { return imageUrl; }
     public String getCreatedAt() { return createdAt; }
     public String getUpdatedAt() { return updatedAt; }
+
+    // Setters
+    public void setId(String id) { this.id = id; }
+    public void setSellerId(String sellerId) { this.sellerId = sellerId; }
+    public void setName(String name) { this.name = name; }
+    public void setDescription(String description) { this.description = description; }
+    public void setPrice(double price) { this.price = price; }
+    public void setCategory(String category) { this.category = category; }
+    public void setAvailable(boolean available) { isAvailable = available; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+    public void setUpdatedAt(String updatedAt) { this.updatedAt = updatedAt; }
 }
