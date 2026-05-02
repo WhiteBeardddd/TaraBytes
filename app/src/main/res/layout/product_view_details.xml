@@ -7,142 +7,454 @@
     android:background="@color/color_dark_bg"
     tools:context=".views.user.ViewProductDetails">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        android:clipChildren="false">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/surface_elevated"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingTop="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp">
+            android:clipChildren="false"
+            android:clipToPadding="false">
 
-            <ImageButton
-                android:id="@+id/back_btn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/back_icon"
-                android:backgroundTint="@color/color_accent_orange"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/lexend_black"
-                android:text="Meal Details"
-                android:textColor="@color/text_primary"
-                android:textSize="22sp"
-                tools:ignore="HardcodedText" />
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:fillViewport="true">
-
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="18dp">
+                android:layout_height="228dp">
 
                 <ImageView
-                    android:id="@+id/product_image"
+                    android:id="@+id/shop_cover_image"
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
+                    android:layout_height="match_parent"
                     android:adjustViewBounds="true"
-                    android:background="@drawable/surface_card"
-                    android:padding="10dp"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/product_1"
                     tools:ignore="ContentDescription" />
 
-                <TextView
-                    android:id="@+id/product_name"
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/lexend_black"
-                    android:text="Classic Cheeseburger"
-                    android:textColor="@color/text_primary"
-                    android:textSize="24sp"
-                    tools:ignore="HardcodedText" />
-
-                <TextView
-                    android:id="@+id/product_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/lexend_regular"
-                    android:lineSpacingExtra="2dp"
-                    android:text="Detailed restaurant or meal description goes here."
-                    android:textColor="@color/text_secondary"
-                    android:textSize="14sp"
-                    tools:ignore="HardcodedText" />
+                    android:layout_height="match_parent"
+                    android:background="#22000000" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_gravity="top"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingTop="18dp"
+                    android:paddingEnd="16dp">
+
+                    <ImageButton
+                        android:id="@+id/back_btn"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/shop_header_icon_button_bg"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/back_icon"
+                        app:tint="@color/black_primary"
+                        tools:ignore="ContentDescription" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:id="@+id/info_btn"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/shop_header_icon_button_bg"
+                        android:padding="10dp"
+                        android:src="@drawable/settings_gear"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageButton
+                        android:id="@+id/favorite_btn"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/shop_header_icon_button_bg"
+                        android:padding="10dp"
+                        android:src="@drawable/heart_icon"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageButton
+                        android:id="@+id/share_btn"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/shop_header_icon_button_bg"
+                        android:padding="10dp"
+                        app:srcCompat="@android:drawable/ic_menu_share"
+                        app:tint="@color/black_primary"
+                        tools:ignore="ContentDescription" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="196dp"
+                android:background="@drawable/shop_content_surface_dark"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="62dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="32dp">
+
+                <TextView
+                    android:id="@+id/shop_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lexend_bold"
+                    android:gravity="center"
+                    android:text="Minute Burger - Placeholder Branch"
+                    android:textColor="@color/text_primary"
+                    android:textSize="22sp"
+                    tools:ignore="HardcodedText" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/product_category"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/surface_card_soft"
-                        android:fontFamily="@font/lexend_semibold"
-                        android:paddingStart="12dp"
-                        android:paddingTop="8dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="8dp"
-                        android:text="Burgers"
-                        android:textColor="@color/text_primary"
-                        android:textSize="12sp"
-                        tools:ignore="HardcodedText" />
+                    <include
+                        android:id="@+id/shop_rating_badge"
+                        layout="@layout/layout_rating_badge" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/shop_search_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/input_surface"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:tint="@color/text_muted"
+                        app:srcCompat="@android:drawable/ic_menu_search"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:id="@+id/product_availability"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/shop_search_label"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/pill_green"
-                        android:fontFamily="@font/lexend_semibold"
-                        android:paddingStart="12dp"
-                        android:paddingTop="8dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="8dp"
-                        android:text="Available now"
-                        android:textColor="@color/text_primary"
-                        android:textSize="12sp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lexend_regular"
+                        android:text="Search menu"
+                        android:textColor="@color/text_muted"
+                        android:textSize="14sp"
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/product_price"
+                <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:fontFamily="@font/lexend_black"
-                    android:text="P199.00"
-                    android:textColor="@color/color_primary"
-                    android:textSize="28sp"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
-        </ScrollView>
+                    android:layout_marginTop="20dp"
+                    android:scrollbars="none">
 
-        <include
-            android:id="@+id/navigation_bar"
-            layout="@layout/layout_navbar" />
-    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="22dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/lexend_bold"
+                                android:text="Popular"
+                                android:textColor="@color/text_primary"
+                                android:textSize="14sp"
+                                tools:ignore="HardcodedText" />
+
+                            <View
+                                android:layout_width="38dp"
+                                android:layout_height="3dp"
+                                android:layout_marginTop="9dp"
+                                android:background="@color/color_primary" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="22dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/lexend_semibold"
+                                android:text="What&#39;s New"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="14sp"
+                                tools:ignore="HardcodedText" />
+
+                            <View
+                                android:layout_width="38dp"
+                                android:layout_height="3dp"
+                                android:layout_marginTop="9dp"
+                                android:background="@android:color/transparent" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="22dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/lexend_semibold"
+                                android:text="Burgers"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="14sp"
+                                tools:ignore="HardcodedText" />
+
+                            <View
+                                android:layout_width="38dp"
+                                android:layout_height="3dp"
+                                android:layout_marginTop="9dp"
+                                android:background="@android:color/transparent" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="22dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/lexend_semibold"
+                                android:text="Meals"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="14sp"
+                                tools:ignore="HardcodedText" />
+
+                            <View
+                                android:layout_width="38dp"
+                                android:layout_height="3dp"
+                                android:layout_marginTop="9dp"
+                                android:background="@android:color/transparent" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/lexend_semibold"
+                                android:text="Drinks"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="14sp"
+                                tools:ignore="HardcodedText" />
+
+                            <View
+                                android:layout_width="38dp"
+                                android:layout_height="3dp"
+                                android:layout_marginTop="9dp"
+                                android:background="@android:color/transparent" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="14dp"
+                    android:background="#1FFFFFFF" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:tint="@color/status_warning"
+                            app:srcCompat="@android:drawable/btn_star_big_on"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/lexend_bold"
+                            android:text="Popular"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            tools:ignore="HardcodedText" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/shop_section_note"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/lexend_regular"
+                        android:text="Most ordered right now. Replace with live menu categories later."
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="148dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/product_1"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="@font/lexend_bold"
+                                android:text="Placeholder Menu Item A"
+                                android:textColor="@color/text_primary"
+                                android:textSize="16sp"
+                                tools:ignore="HardcodedText" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/lexend_regular"
+                                android:text="Replace with best-selling item name later."
+                                android:textColor="@color/text_secondary"
+                                android:textSize="13sp"
+                                tools:ignore="HardcodedText" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="148dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/product_2"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="@font/lexend_bold"
+                                android:text="Placeholder Menu Item B"
+                                android:textColor="@color/text_primary"
+                                android:textSize="16sp"
+                                tools:ignore="HardcodedText" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/lexend_regular"
+                                android:text="Replace with another popular menu item later."
+                                android:textColor="@color/text_secondary"
+                                android:textSize="13sp"
+                                tools:ignore="HardcodedText" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_marginTop="154dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="14dp"
+                app:cardUseCompatPadding="true">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/hero_gradient"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/shop_logo_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:visibility="gone"
+                        android:src="@drawable/product_1"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/shop_logo_initials"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/lexend_black"
+                        android:gravity="center"
+                        android:text="MB"
+                        android:textColor="@color/text_primary"
+                        android:textSize="24sp"
+                        tools:ignore="HardcodedText" />
+                </FrameLayout>
+            </androidx.cardview.widget.CardView>
+        </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
