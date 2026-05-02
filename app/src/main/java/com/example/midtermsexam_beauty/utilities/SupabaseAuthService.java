@@ -2,6 +2,7 @@ package com.example.midtermsexam_beauty.utilities;
 
 import android.util.Log;
 import com.example.midtermsexam_beauty.BuildConfig;
+import com.example.midtermsexam_beauty.models.BuyerAddress;
 import com.example.midtermsexam_beauty.models.MenuItem;
 import com.example.midtermsexam_beauty.models.Profile;
 import org.json.JSONArray;
@@ -50,6 +51,10 @@ public class SupabaseAuthService {
         return url.endsWith("/") ? url.substring(0, url.length() - 1) : url;
     }
 
+    // ==========================================
+    // AUTHENTICATION
+    // ==========================================
+
     public AuthResult signUp(String email, String password, String username) {
         try {
             JSONObject payload = new JSONObject()
@@ -57,9 +62,9 @@ public class SupabaseAuthService {
                     .put("password", password)
                     .put("data", new JSONObject().put("username", username));
             HttpResponse res = post("/auth/v1/signup", payload.toString(), null);
-            return res.statusCode >= 200 && res.statusCode < 300 
-                ? new AuthResult(true, "Check your email.", null, null)
-                : new AuthResult(false, extractErrorMessage(res.body), null, null);
+            return res.statusCode >= 200 && res.statusCode < 300
+                    ? new AuthResult(true, "Check your email.", null, null)
+                    : new AuthResult(false, extractErrorMessage(res.body), null, null);
         } catch (Exception e) { return new AuthResult(false, e.getMessage(), null, null); }
     }
 
@@ -69,12 +74,41 @@ public class SupabaseAuthService {
             HttpResponse res = post("/auth/v1/token?grant_type=password", payload.toString(), null);
             if (res.statusCode >= 200 && res.statusCode < 300) {
                 JSONObject json = new JSONObject(res.body);
-                return new AuthResult(true, "Login success.", json.optString("access_token"), 
-                    json.has("user") ? json.getJSONObject("user").getString("id") : null);
+                return new AuthResult(true, "Login success.", json.optString("access_token"),
+                        json.has("user") ? json.getJSONObject("user").getString("id") : null);
             }
             return new AuthResult(false, extractErrorMessage(res.body), null, null);
         } catch (Exception e) { return new AuthResult(false, e.getMessage(), null, null); }
     }
+
+    public boolean updatePassword(String token, String newPassword) {
+        if (token == null || newPassword == null) return false;
+        try {
+            JSONObject payload = new JSONObject().put("password", newPassword);
+            URL url = new URL(getBaseUrl() + "/auth/v1/user");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("PUT");
+            conn.setDoOutput(true);
+            conn.setRequestProperty("apikey", BuildConfig.SUPABASE_ANON_KEY);
+            conn.setRequestProperty("Authorization", "Bearer " + token);
+            conn.setRequestProperty("Content-Type", "application/json");
+
+            try (OutputStream os = conn.getOutputStream()) {
+                os.write(payload.toString().getBytes(StandardCharsets.UTF_8));
+            }
+
+            int code = conn.getResponseCode();
+            conn.disconnect();
+            return code >= 200 && code < 300;
+        } catch (Exception e) {
+            Log.e(TAG, "updatePassword error", e);
+            return false;
+        }
+    }
+
+    // ==========================================
+    // USER PROFILES
+    // ==========================================
 
     public Profile getProfile(String token, String authId) {
         if (token == null || authId == null) return null;
@@ -133,6 +167,85 @@ public class SupabaseAuthService {
         } catch (Exception e) { Log.e(TAG, "updateProfile error", e); return false; }
     }
 
+    // ==========================================
+    // BUYER ADDRESS CRUD
+    // ==========================================
+
+    public BuyerAddress getBuyerAddress(String token, String buyerId) {
+        if (token == null || buyerId == null) return null;
+        try {
+            URL url = new URL(getBaseUrl() + "/rest/v1/buyer_address?buyer_id=eq." + buyerId + "&select=*");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("apikey", BuildConfig.SUPABASE_ANON_KEY);
+            conn.setRequestProperty("Authorization", "Bearer " + token);
+            int code = conn.getResponseCode();
+            String body = readStream(code < 300 ? conn.getInputStream() : conn.getErrorStream());
+            conn.disconnect();
+
+            if (code >= 200 && code < 300) {
+                JSONArray arr = new JSONArray(body);
+                if (arr.length() > 0) {
+                    JSONObject obj = arr.getJSONObject(0);
+                    BuyerAddress addr = new BuyerAddress();
+                    addr.setId(obj.optString("id"));
+                    addr.setBuyerId(obj.optString("buyer_id"));
+                    addr.setStreet(obj.optString("street"));
+                    addr.setBarangay(obj.optString("barangay"));
+                    addr.setCity(obj.optString("city"));
+                    addr.setCountry(obj.optString("country"));
+                    addr.setPostalCode(obj.optInt("postal_code", 0));
+                    return addr;
+                }
+            }
+        } catch (Exception e) { Log.e(TAG, "getBuyerAddress error", e); }
+        return null;
+    }
+
+    public boolean saveBuyerAddress(String token, BuyerAddress address) {
+        try {
+            JSONObject payload = new JSONObject()
+                    .put("buyer_id", address.getBuyerId())
+                    .put("street", address.getStreet())
+                    .put("barangay", address.getBarangay())
+                    .put("city", address.getCity())
+                    .put("country", address.getCountry())
+                    .put("postal_code", address.getPostalCode());
+
+            URL url = new URL(getBaseUrl() + "/rest/v1/buyer_address?on_conflict=buyer_id");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setRequestProperty("apikey", BuildConfig.SUPABASE_ANON_KEY);
+            conn.setRequestProperty("Authorization", "Bearer " + token);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Prefer", "resolution=merge-duplicates");
+
+            try (OutputStream os = conn.getOutputStream()) {
+                os.write(payload.toString().getBytes(StandardCharsets.UTF_8));
+            }
+
+            int code = conn.getResponseCode();
+
+            // Debugging block to catch silent errors
+            if (code < 200 || code >= 300) {
+                String errorBody = readStream(conn.getErrorStream());
+                Log.e(TAG, "SUPABASE REJECTED ADDRESS SAVE! HTTP Code: " + code + " | Reason: " + errorBody);
+                conn.disconnect();
+                return false;
+            }
+
+            conn.disconnect();
+            return true;
+        } catch (Exception e) {
+            Log.e(TAG, "saveBuyerAddress Java exception", e);
+            return false;
+        }
+    }
+
+    // ==========================================
+    // SELLER TOOLS
+    // ==========================================
 
     public String uploadImage(String token, String bucket, String path, byte[] data, String mimeType) {
         try {
@@ -153,11 +266,10 @@ public class SupabaseAuthService {
             conn.disconnect();
 
             if (code >= 200 && code < 300) {
-                // Return the public URL if it's menu-items (which we know is public from SQL)
                 if (bucket.equals("menu-items")) {
                     return getBaseUrl() + "/storage/v1/object/public/" + bucket + "/" + path;
                 }
-                return path; // For private, return the path
+                return path;
             }
             Log.e(TAG, "Upload failed: " + code + " " + body);
         } catch (Exception e) { Log.e(TAG, "uploadImage error", e); }
@@ -179,7 +291,7 @@ public class SupabaseAuthService {
                 JSONArray arr = new JSONArray(body);
                 if (arr.length() > 0) {
                     String profileId = arr.getJSONObject(0).getString("id");
-                    
+
                     URL sUrl = new URL(getBaseUrl() + "/rest/v1/seller_profiles?profile_id=eq." + profileId + "&select=id");
                     HttpURLConnection sConn = (HttpURLConnection) sUrl.openConnection();
                     sConn.setRequestMethod("GET");
@@ -247,7 +359,9 @@ public class SupabaseAuthService {
         return stats;
     }
 
-    // --- MENU ITEMS CRUD ---
+    // ==========================================
+    // MENU ITEMS CRUD
+    // ==========================================
 
     public List<MenuItem> getMenuItems(String token, String sellerId) {
         List<MenuItem> items = new ArrayList<>();
@@ -340,7 +454,9 @@ public class SupabaseAuthService {
         } catch (Exception e) { Log.e(TAG, "deleteMenuItem error", e); return false; }
     }
 
-    // --- HELPER METHODS ---
+    // ==========================================
+    // HELPER METHODS
+    // ==========================================
 
     public boolean isSeller(String token, String authId) {
         Profile p = getProfile(token, authId);
